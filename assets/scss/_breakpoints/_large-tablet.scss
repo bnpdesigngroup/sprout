@@ -1,0 +1,192 @@
+/****************************************************************
+ * Author: Justin Proffitt
+ * Stylesheet: Big Tablet and Up
+ *
+ * These styles will show up on ipads and up
+ ****************************************************************/
+
+@include respond-min($large-tablet-width) {
+
+/********************************
+ * Global
+ ********************************/
+
+/**
+ * Header
+ */
+
+header[role="banner"] {
+
+}
+
+/**
+ * Header - Banner
+ */
+
+.brand {
+
+}
+/**
+ * Header - Aside
+ */
+
+.tagline {
+
+}
+
+/**
+ * Header - Contact Information
+ */
+
+.contact {
+
+}
+
+/**
+ * Header - Navigation
+ */
+
+.nav.large-tablet {
+
+	background: none;
+	border: none;
+
+	a {
+
+		background: none;
+		border: none;
+
+		&:active, &:hover, &:focus {
+
+		}
+
+		&.disabled {
+
+			@include state(disabled, normal, darken($white, 20%));
+
+		}
+
+
+	}
+
+	li {
+
+		&.current a {
+
+		}
+
+		ul {
+
+			border: none;
+
+			ul {
+
+				top: 0;
+
+			}
+
+		}
+
+	}
+
+	& > ul > li {
+
+		@include _gap-right();
+
+		& > a {
+
+			padding: 0;
+
+		}	
+
+	}
+	
+}
+
+/**
+ * Document
+ */
+
+/**
+ * Document - Content
+ */
+
+/**
+ * Document - Content - Main
+ */
+
+// Captions
+
+.wp-caption {
+
+	&.alignleft {
+
+		@include _gap-right();
+
+	}
+
+	&.alignright {
+
+		@include _gap-left();
+
+	}
+
+}
+
+/**
+ * Document - Content - Sidebar
+ */
+
+.sidebar {
+
+}
+
+/**
+ * Footer
+ */
+
+/**
+ * Footer - Navigation
+ */
+
+/********************************
+ * Front Page
+ ********************************/
+
+.home {
+
+	/**
+	 * Document
+	 */
+
+	/**
+	 * Document - Content
+	 */
+
+}
+
+/********************************
+ * Blog
+ ********************************/
+
+/********************************
+ * Archive
+ ********************************/
+
+/********************************
+ * Post
+ ********************************/
+
+/********************************
+ * Page
+ ********************************/
+
+/********************************
+ * Search
+ ********************************/
+
+/********************************
+ * 404 - Not Found
+ ********************************/
+
+}

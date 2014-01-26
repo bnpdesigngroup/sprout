@@ -1,0 +1,17 @@
+///////////////////////
+//    font stacks    //
+///////////////////////
+
+$font-family: Helvetica, Arial, Geneva, sans-serif !default;
+@mixin font-stack($primaryFont: "", $secondaryFont: "", $fallbackFonts: $font-family) {
+  // might add inline-font-files() at some point
+  @if $secondaryFont != "" {
+    font-family: #{$primaryFont}, #{$secondaryFont}, #{$fallbackFonts};
+  } @else {
+    @if $primaryFont != "" {
+      font-family: #{$primaryFont}, #{$fallbackFonts};
+    } @else {
+      font-family: #{$fallbackFonts};
+    }
+  }
+}

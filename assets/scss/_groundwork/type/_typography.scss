@@ -1,0 +1,411 @@
+// =============================================
+//                Typography
+//          Last Updated:2013-8-16
+// =============================================
+
+%document {
+  font-family: $font-family;
+  font-size: $font-size;
+  line-height: $line-height;
+  color: $font-color;
+}
+
+%links {
+  color: $link-color;
+  @if $links-underlined == false {
+    text-decoration: none;
+  }
+  transition: color $default-transition-speed;
+  &:hover, &:focus {
+    color: $link-active;
+    @if $links-active-underlined {
+      text-decoration: underline;
+    }
+  }
+}
+
+%heading {
+  margin-bottom: ($gutter * 1.5);
+  line-height: $heading-line-height;
+  @extend %#{$heading-font};
+}
+
+%h1 {
+  @extend %heading;
+  font-weight: 200;
+  font-size: 2.3333333333em;
+}
+
+%h2 {
+  @extend %heading;
+  font-weight: 200;
+  font-size: 2em;
+}
+
+%h3 {
+  @extend %heading;
+  font-weight: 500;
+  font-size: 1.5em;
+}
+
+%h4 {
+  @extend %heading;
+  font-weight: 500;
+  font-size: 1.3333333333em;
+}
+
+%h5 {
+  @extend %heading;
+  font-weight: 900;
+  font-size: 1.1666666667em;
+}
+
+%h6 {
+  @extend %heading;
+  font-weight: 900;
+  font-size: 1.1666666667em;
+  text-transform: uppercase;
+}
+
+%p, %ul, %ol, %dl {
+  margin-bottom: 10px;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+%list {
+  margin-left: 20px;
+  %list-item {
+    display: list-item;
+  }
+}
+
+%dl {
+  %dt {
+    font-weight: bold;
+  }
+  %dd {
+    padding-left: 1em;
+    margin-bottom: $gutter;
+  }
+}
+
+%ul-checklist {
+  @extend %unstyled;
+  margin-left: 0;
+  %checklist-item {
+    &:before {
+      @include icon($fa-var-square-o);
+      display: inline-block;
+      width: 1.1em;
+      margin-right: 0.25em;
+      font-size: 1.2em;
+      vertical-align: baseline;
+      background-image: none;
+      background-position: 0% 0%;
+      background-repeat: repeat;
+      margin-top: 0;
+    }
+    &[aria-checked~="true"], &[data-checked~="true"], &[checked="checked"], &.checked, &.completed {
+      &:before {
+        content: $fa-var-check-square-o;
+      }
+    }
+  }
+  &:not([readonly]) {
+    %checklist-item {
+      &:not([readonly]) {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+%ul-list {
+  @extend %unstyled;
+  margin-left: 0;
+  %list-item {
+    &:before {
+      @include icon($fa-var-circle);
+      display: inline-block;
+      width: 1.1em;
+      margin-right: 0.25em;
+      font-size: 0.6em;
+      vertical-align: middle;
+      background-image: none;
+      background-position: 0% 0%;
+      background-repeat: repeat;
+      margin-top: 0;
+    }
+  }
+}
+
+%ol-list {
+  @extend %unstyled;
+  counter-reset: li;
+  margin-left: 1.5em;
+  line-height: 1.6;
+  %list-item {
+    position: relative;
+    padding: 2px 6px 0;
+    &:before {
+      content: counter(li);
+      counter-increment: li;
+      position: absolute;
+      top: 0.1em;
+      left: -2em;
+      width: 2em;
+      text-align: center;
+      padding: 0.3em 0.1em 0.1em;
+      font-size: 0.8em;
+      line-height: 1.5;
+      color: $background-color;
+      background: $font-color;
+      font-weight: bold;
+      border-radius: $default-radius;
+    }
+  }
+}
+
+%sup                { @extend %relative, %small; top: -0.4em; }
+%sub                { @extend %relative, %small; top: 0.2em; }
+%monospace          { font-family: monospace; }
+%del, %strike       { text-decoration: line-through; }
+
+@for $i from 1 through length($modifier-name) {
+  %#{nth($modifier-name, $i)} {
+    color: nth($modifier-text, $i);
+  }
+}
+
+%q {
+  @extend %bold, %italic;
+  &:before {
+    content: "\201C"; // left quotation mark
+  }
+  &:after {
+    content: "\201D"; // right quotation mark
+  }
+}
+
+%blockquote {
+  @extend %relative, %bold;
+  padding: 1.3em 4em 1em;
+  color: $quote-color;
+  @include font-stack($quote-font);
+  font-size: 1.15em;
+  background: $quote-background;
+  border-radius: $default-radius;
+  &:before {
+    content: "\201C"; // left quotation mark
+    color: darken($quote-background, 20%);
+    font-size: 4em;
+    display: block;
+    position: absolute;
+    top: -0.2em;
+    left: 0.1em;
+  }
+  &:after {
+    content: "\201D"; // right quotation mark
+    color: darken($quote-background, 20%);
+    font-size: 4em;
+    display: block;
+    position: absolute;
+    top: -0.2em;
+    right: 0.1em;
+  }
+}
+
+%cite {
+  display: block;
+  position: relative;
+  left: -1em;
+  margin-top: 0.25em;
+  font-size: 0.95em;
+  font-weight: normal;
+  font-style: normal;
+  color: lighten($font-color, 15%);
+  &:before {
+    content: "\2014"; // em dash
+  }
+}
+
+%abbr {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+%pre {
+  @extend %monospace;
+  white-space: pre;
+  max-width: 100%;
+  overflow: auto;
+}
+
+%code {
+  @extend %inline-block, %monospace;
+  white-space: nowrap;
+  background: $code-background;
+  color: $code-text;
+  border: $border-thickness $border-style $border-color;
+  border-radius: $default-radius;
+  padding: 0 ($gutter / 2);
+  &.block {
+    padding: ($gutter / 2) $gutter;
+  }
+}
+
+%info             { color: $info-color; }
+%alert            { color: $alert-color; }
+%warning          { color: $warning-color; }
+%error, %invalid  { color: $error-color; }
+%success, %valid  { color: $success-color; }
+%question         { color: $question-color; }
+
+@include output() {
+
+  // responsive text
+  .js {
+    .responsive:not(table) {
+      @extend %truncate;
+      transition: font $default-transition-speed;
+    }
+  }
+
+  body {
+    @extend %document;
+  }
+
+  ::-moz-selection {
+    @include _selection;
+  }
+  ::selection {
+    @include _selection;
+  }
+
+  @if $type-styles {
+    a, a:visited {
+      @extend %links;
+    }
+    ul, ol {
+      @extend %list;
+      li {
+        @extend %list-item;
+      }
+    }
+    dl {
+      @extend %dl;
+      dt {
+        @extend %dt;
+      }
+      dd {
+        @extend %dd;
+      }
+    }
+    abbr[title], dfn[title],
+    abbr[data-title], dfn[data-title] {
+      @extend %abbr;
+    }
+    @each $element in $type-elements {
+      #{$element} {
+        @extend %#{$element};
+      }
+    }
+  }
+
+  @if $styled-lists {
+    ul, ol {
+      &.unstyled {
+        @extend %unstyled;
+      }
+    }
+    ul.list {
+      @extend %ul-list;
+      > li {
+        @extend %list-item;
+        @for $i from 1 through length($ui-states) {
+          &.#{nth($ui-states, $i)} {
+            &:before {
+              content: "#{nth($ui-icons, $i)}"; // see $ui-icons
+              font-size: 1.2em;
+            }
+          }
+        }
+      }
+    }
+    ul.checklist {
+      @extend %ul-checklist;
+      > li {
+        @extend %checklist-item;
+      }
+    }
+    ol.list {
+      @extend %ol-list;
+
+      @if $type-colors {
+        @for $i from 1 through length($modifier-name) {
+          &.#{nth($modifier-name, $i)} {
+            li {
+              &:before {
+                background: nth($modifier-code, $i);
+              }
+            }
+          }
+        }
+        li {
+          @for $i from 1 through length($modifier-name) {
+            &.#{nth($modifier-name, $i)} {
+              &:before {
+                background: nth($modifier-code, $i);
+              }
+            }
+          }
+          @for $i from 1 through length($ui-states) {
+            &.#{nth($ui-states, $i)} {
+              &:before {
+                background-color: nth($ui-states-colors, $i);
+              }
+            }
+          }
+        }
+      }
+
+      > li {
+        @extend %list-item;
+      }
+    }
+  }
+
+  @if $type-colors {
+    @for $i from 1 through length($modifier-name) {
+      .#{nth($modifier-name, $i)} {
+        color: nth($modifier-code, $i);
+      }
+      .#{nth($modifier-name, $i)}-bg {
+        background: nth($modifier-code, $i);
+        color: nth($modifier-text, $i);
+      }
+    }
+  }
+
+  @if $type-states {
+    @for $i from 1 through length($ui-states) {
+      .#{nth($ui-states, $i)} {
+        @extend %#{nth($ui-states, $i)};
+      }
+      .#{nth($ui-states, $i)}-bg {
+        background: nth($ui-states-backgrounds, $i);
+        color: nth($ui-states-colors, $i);
+      }
+    }
+  }
+
+  @if $type-classes {
+    @each $modifier in $type-classnames {
+      .#{$modifier} {
+        @extend %#{$modifier};
+      }
+    }
+  }
+
+}

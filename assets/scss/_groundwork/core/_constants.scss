@@ -1,0 +1,264 @@
+// =============================================
+//            Constant Variables
+//          Last Updated:2013-8-24
+// =============================================
+
+
+///////////////////////
+//     fractions     //
+///////////////////////
+
+$numbers:                 "one"    "two"    "three"  "four"    "five"   "six"    "seven"    "eight"   "nine"   "ten"    "eleven"    "twelve"    "thirteen"    "fourteen"    "fifteen"     "sixteen"     "seventeen"     "eighteen"    "nineteen"    "twenty";
+$fractions-singular:      "whole"  "half"   "third"  "fourth"  "fifth"  "sixth"  "seventh"  "eighth"  "ninth"  "tenth"  "eleventh"  "twelfth"   "thirteenth"  "fourteenth"  "fifteenth"   "sixteenth"   "seventeenth"   "eighteenth"  "nineteenth"   "twentieth";
+$fractions-plural:        "wholes" "halves" "thirds" "fourths" "fifths" "sixths" "sevenths" "eighths" "ninths" "tenths" "elevenths" "twelfths"  "thirteenths" "fourteenths" "fifteenths"  "sixteenths"  "seventeenths"  "eighteenths" "ninteenths"  "twentieths";
+
+// wholes
+$one-whole:         percentage(1);
+
+// halves
+$one-half:          percentage(1/2);
+$two-halves:        $one-whole;
+
+// thirds
+$one-third:         percentage(1/3);
+$two-thirds:        percentage(2/3);
+$three-thirds:      $one-whole;
+
+// fourths
+$one-fourth:        percentage(1/4);
+$two-fourths:       $one-half;
+$three-fourths:     percentage(3/4);
+$four-fourths:      $one-whole;
+
+// fifths
+$one-fifth:         percentage(1/5);
+$two-fifths:        percentage(2/5);
+$three-fifths:      percentage(3/5);
+$four-fifths:       percentage(4/5);
+$five-fifths:       $one-whole;
+
+// sixths
+$one-sixth:         percentage(1/6);
+$two-sixths:        $one-third;
+$three-sixths:      $one-half;
+$four-sixths:       $two-thirds;
+$five-sixths:       percentage(5/6);
+$six-sixths:        $one-whole;
+
+// sevenths
+$one-seventh:       percentage(1/7);
+$two-sevenths:      percentage(2/7);
+$three-sevenths:    percentage(3/7);
+$four-sevenths:     percentage(4/7);
+$five-sevenths:     percentage(5/7);
+$six-sevenths:      percentage(6/7);
+$seven-sevenths:    $one-whole;
+
+// eighths
+$one-eighth:        percentage(1/8);
+$two-eighths:       $one-fourth;
+$three-eighths:     percentage(3/8);
+$four-eighths:      $one-half;
+$five-eighths:      percentage(5/8);
+$six-eighths:       $three-fourths;
+$seven-eighths:     percentage(7/8);
+$eight-eighths:     $one-whole;
+
+// ninths
+$one-ninth:         percentage(1/9);
+$two-ninths:        percentage(2/9);
+$three-ninths:      $one-third;
+$four-ninths:       percentage(4/9);
+$five-ninths:       percentage(5/9);
+$six-ninths:        $two-thirds;
+$seven-ninths:      percentage(7/9);
+$eight-ninths:      percentage(8/9);
+$nine-ninths:       $one-whole;
+
+// tenths
+$one-tenth:         percentage(1/10);
+$two-tenths:        $one-fifth;
+$three-tenths:      percentage(3/10);
+$four-tenths:       $two-fifths;
+$five-tenths:       $one-half;
+$six-tenths:        $three-fifths;
+$seven-tenths:      percentage(7/10);
+$eight-tenths:      $four-fifths;
+$nine-tenths:       percentage(9/10);
+$ten-tenths:        $one-whole;
+
+// elevenths
+$one-eleventh:      percentage(1/11);
+$two-elevenths:     percentage(2/11);
+$three-elevenths:   percentage(3/11);
+$four-elevenths:    percentage(4/11);
+$five-elevenths:    percentage(5/11);
+$six-elevenths:     percentage(6/11);
+$seven-elevenths:   percentage(7/11);
+$eight-elevenths:   percentage(8/11);
+$nine-elevenths:    percentage(9/11);
+$ten-elevenths:     percentage(10/11);
+$eleven-elevenths:  $one-whole;
+
+// twelfths
+$one-twelfth:        percentage(1/12);
+$two-twelfths:       $one-sixth;
+$three-twelfths:     $one-fourth;
+$four-twelfths:      $one-third;
+$five-twelfths:      percentage(5/12);
+$six-twelfths:       $one-half;
+$seven-twelfths:     percentage(7/12);
+$eight-twelfths:     $two-thirds;
+$nine-twelfths:      $three-fourths;
+$ten-twelfths:       $five-sixths;
+$eleven-twelfths:    percentage(11/12);
+$twelve-twelfths:    $one-whole;
+
+// thirteenths
+$one-thirteenth:        percentage(1/13);
+$two-thirteenths:       percentage(2/13);
+$three-thirteenths:     percentage(3/13);
+$four-thirteenths:      percentage(4/13);
+$five-thirteenths:      percentage(5/13);
+$six-thirteenths:       percentage(6/13);
+$seven-thirteenths:     percentage(7/13);
+$eight-thirteenths:     percentage(8/13);
+$nine-thirteenths:      percentage(9/13);
+$ten-thirteenths:       percentage(10/13);
+$eleven-thirteenths:    percentage(11/13);
+$twelve-thirteenths:    percentage(12/13);
+$thirteen-thirteenths:  $one-whole;
+
+// fourteenths
+$one-fourteenth:        percentage(1/14);
+$two-fourteenths:       $one-seventh;
+$three-fourteenths:     percentage(3/14);
+$four-fourteenths:      $two-sevenths;
+$five-fourteenths:      percentage(5/14);
+$six-fourteenths:       $three-sevenths;
+$seven-fourteenths:     $one-half;
+$eight-fourteenths:     $four-sevenths;
+$nine-fourteenths:      percentage(9/14);
+$ten-fourteenths:       $five-sevenths;
+$eleven-fourteenths:    percentage(11/14);
+$twelve-fourteenths:    $six-sevenths;
+$thirteen-fourteenths:  percentage(13/14);
+$fourteen-fourteenths:  $one-whole;
+
+// fifteenths
+$one-fifteenth:        percentage(1/15);
+$two-fifteenths:       percentage(2/15);
+$three-fifteenths:     percentage(3/15);
+$four-fifteenths:      percentage(4/15);
+$five-fifteenths:      $one-third;
+$six-fifteenths:       percentage(6/15);
+$seven-fifteenths:     percentage(7/15);
+$eight-fifteenths:     percentage(8/15);
+$nine-fifteenths:      percentage(9/15);
+$ten-fifteenths:       $two-thirds;
+$eleven-fifteenths:    percentage(11/15);
+$twelve-fifteenths:    percentage(12/15);
+$thirteen-fifteenths:  percentage(13/15);
+$fourteen-fifteenths:  percentage(14/15);
+$fifteen-fifteenths:   $one-whole;
+
+// sixteenths
+$one-sixteenth:        percentage(1/16);
+$two-sixteenths:       $one-eighth;
+$three-sixteenths:     percentage(3/16);
+$four-sixteenths:      $two-eighths;
+$five-sixteenths:      percentage(5/16);
+$six-sixteenths:       $three-eighths;
+$seven-sixteenths:     percentage(7/16);
+$eight-sixteenths:     $four-eighths;
+$nine-sixteenths:      percentage(9/16);
+$ten-sixteenths:       $five-eighths;
+$eleven-sixteenths:    percentage(11/16);
+$twelve-sixteenths:    $six-eighths;
+$thirteen-sixteenths:  percentage(13/16);
+$fourteen-sixteenths:  $seven-eighths;
+$fifteen-sixteenths:   percentage(15/16);
+$sixteen-sixteenths:   $one-whole;
+
+// seventeenths
+$one-seventeenth:        percentage(1/17);
+$two-seventeenths:       percentage(2/17);
+$three-seventeenths:     percentage(3/17);
+$four-seventeenths:      percentage(4/17);
+$five-seventeenths:      percentage(5/17);
+$six-seventeenths:       percentage(6/17);
+$seven-seventeenths:     percentage(7/17);
+$eight-seventeenths:     percentage(8/17);
+$nine-seventeenths:      percentage(9/17);
+$ten-seventeenths:       percentage(10/17);
+$eleven-seventeenths:    percentage(11/17);
+$twelve-seventeenths:    percentage(12/17);
+$thirteen-seventeenths:  percentage(13/17);
+$fourteen-seventeenths:  percentage(14/17);
+$fifteen-seventeenths:   percentage(15/17);
+$sixteen-seventeenths:   percentage(16/17);
+$seventeen-seventeenths: $one-whole;
+
+// eighteenths
+$one-eighteenth:        percentage(1/18);
+$two-eighteenths:       $one-ninth;
+$three-eighteenths:     percentage(3/18);
+$four-eighteenths:      $two-ninths;
+$five-eighteenths:      percentage(5/18);
+$six-eighteenths:       $three-ninths;
+$seven-eighteenths:     percentage(7/18);
+$eight-eighteenths:     $four-ninths;
+$nine-eighteenths:      $one-half;
+$ten-eighteenths:       $five-ninths;
+$eleven-eighteenths:    percentage(11/18);
+$twelve-eighteenths:    $six-ninths;
+$thirteen-eighteenths:  percentage(13/18);
+$fourteen-eighteenths:  $seven-ninths;
+$fifteen-eighteenths:   percentage(15/18);
+$sixteen-eighteenths:   $eight-ninths;
+$seventeen-eighteenths: percentage(17/18);
+$eighteen-eighteenths:  $one-whole;
+
+// ninteenths
+$one-nineteenth:        percentage(1/19);
+$two-nineteenths:       percentage(2/19);
+$three-nineteenths:     percentage(3/19);
+$four-nineteenths:      percentage(4/19);
+$five-nineteenths:      percentage(5/19);
+$six-nineteenths:       percentage(6/19);
+$seven-nineteenths:     percentage(7/19);
+$eight-nineteenths:     percentage(8/19);
+$nine-nineteenths:      percentage(9/19);
+$ten-nineteenths:       percentage(10/19);
+$eleven-nineteenths:    percentage(11/19);
+$twelve-nineteenths:    percentage(12/19);
+$thirteen-nineteenths:  percentage(13/19);
+$fourteen-nineteenths:  percentage(14/19);
+$fifteen-nineteenths:   percentage(15/19);
+$sixteen-nineteenths:   percentage(16/19);
+$seventeen-nineteenths: percentage(17/19);
+$eighteen-nineteenths:  percentage(18/19);
+$nineteen-nineteenths:  $one-whole;
+
+// twentieths
+$one-twentieth:        percentage(1/20);
+$two-twentieths:       $one-tenth;
+$three-twentieths:     percentage(3/20);
+$four-twentieths:      $two-tenths;
+$five-twentieths:      $one-fourth;
+$six-twentieths:       $three-tenths;
+$seven-twentieths:     percentage(7/20);
+$eight-twentieths:     $four-tenths;
+$nine-twentieths:      percentage(9/20);
+$ten-twentieths:       $one-half;
+$eleven-twentieths:    percentage(11/20);
+$twelve-twentieths:    $six-tenths;
+$thirteen-twentieths:  percentage(13/20);
+$fourteen-twentieths:  $seven-tenths;
+$fifteen-twentieths:   $three-fourths;
+$sixteen-twentieths:   $eight-tenths;
+$seventeen-twentieths: percentage(17/20);
+$eighteen-twentieths:  $nine-tenths;
+$nineteen-twentieths:  percentage(19/20);
+$twenty-twentieths:    $one-whole;
+

@@ -1,0 +1,146 @@
+// =============================================
+//               Message Boxes
+//          Last Updated:2013-8-21
+// =============================================
+
+%message {
+  @extend %relative;
+  word-wrap: break-word;
+  padding: 0.25em 1em 0.25em 2em;
+  background: $button-color;
+  color: $button-text;
+  border: 1px solid $border-color;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: $default-radius;
+  &:before {
+    @include icon($fa-var-info-circle);
+    position: absolute;
+    top: 50%;
+    margin-top: -0.65em;
+    left: 0;
+    padding: 0.2em 0.3em;
+    font-size: 1.2em;
+  }
+}
+
+%message-small { @include _small; }
+%message-medium { @include _medium; }
+%message-large { @include _large; }
+%message-square { @include _square; }
+%message-rounded { @include _rounded; }
+%message-round { @include _round; }
+%message-disabled { @include state(disabled,normal,desaturate($button-color,20%)); }
+
+%message-info {
+  background-color: $info-background;
+  color: $info-color;
+  border-color: $info-border;
+  &%message-disabled {
+    @include state(disabled,normal,desaturate($info-color,20%));
+  }
+}
+
+%message-alert {
+  background-color: $alert-background;
+  color: $alert-color;
+  border-color: $alert-border;
+  &:before {
+    content: $fa-var-exclamation-circle;
+  }
+  &%message-disabled {
+    @include state(disabled,normal,desaturate($alert-color,20%));
+  }
+}
+
+%message-warning {
+  background: $warning-background;
+  color: $warning-color;
+  border-color: $warning-border;
+  &:before {
+    content: $fa-var-exclamation-triangle;
+  }
+  &%message-disabled {
+    @include state(disabled,normal,desaturate($warning-color,20%));
+  }
+}
+
+%message-error {
+  background: $error-background;
+  color: $error-color;
+  border-color: $error-border;
+  &:before {
+    content: $fa-var-times-circle;
+  }
+  &%message-disabled {
+    @include state(disabled,normal,desaturate($error-color,20%));
+  }
+}
+
+%message-success {
+  background: $success-background;
+  color: $success-color;
+  border-color: $success-border;
+  &:before {
+    content: $fa-var-check-circle;
+  }
+  &%message-disabled {
+    @include state(disabled,normal,desaturate($success-color,20%));
+  }
+}
+
+%message-question {
+  background-color: $question-background;
+  color: $question-color;
+  border-color: $question-border;
+  &:before {
+    content: $fa-var-question-circle;
+  }
+  &%message-disabled {
+    @include state(disabled,normal,desaturate($question-color,20%));
+  }
+}
+
+%message-dismissible {
+  padding-right: 2em;
+  cursor: pointer;
+  &:after {
+    @include icon($fa-var-times);
+    position: absolute;
+    top: 50%;
+    margin-top: -0.9em;
+    right: 0;
+    padding: 0.2em 0.3em;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+}
+
+@for $i from 1 through length($modifier-name) {
+  %message-#{nth($modifier-name, $i)} {
+    border-color: nth($modifier-code, $i);
+    background-color: lighten(nth($modifier-code, $i), 10%);
+    color: nth($modifier-text, $i);
+  }
+}
+
+@include output() {
+
+  $message-selectors: '';
+
+  @if $ui-classes {
+    $message-selectors: ".message";
+  }
+  @if $aria-selectors {
+    @if $ui-classes {
+      $message-selectors: #{$message-selectors + ", "};
+    }
+    $message-selectors: #{$message-selectors + '[role~="alert"], [role~="status"]'};
+  }
+
+  #{$message-selectors} {
+    @extend %message;
+    @include message-modifiers;
+  }
+
+}

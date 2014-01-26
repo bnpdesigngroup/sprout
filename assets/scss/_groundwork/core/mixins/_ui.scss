@@ -1,0 +1,112 @@
+///////////////////////
+//   user interface  //
+///////////////////////
+
+// selection highlighting
+@mixin _selection {
+  background: $selection-color;
+  color: $selection-text;
+  text-shadow: none;
+}
+
+// element states
+@mixin state($state: "disabled", $mode: normal, $color: default) {
+  @if $color == "default" {
+    @if $state == "disabled" {
+      $color: $disabled-color;
+    }@else if $state == "info" {
+      $color: $info-color;
+    }@else if $state == "success" {
+      $color: $success-color;
+    }@else if $state == "warning" {
+      $color: $warning-color;
+    }@else if $state == "error" {
+      $color: $error-color;
+    }@else if $state == "question" {
+      $color: $question-color;
+    }
+  }
+  color: lighten($color, 25%);
+  @if $mode != "textOnly" {
+  background: lighten($color, 15%);
+  border-color: lighten($color, 10%);
+  }
+  @if $state == "disabled" {
+  cursor: not-allowed;
+  text-decoration: none;
+  outline: none;
+  }
+}
+
+// message modifiers
+@mixin message-modifiers() {
+  @each $modifier in $ui-modifiers {
+    &.#{$modifier} {
+      @extend %message-#{$modifier};
+    }
+  }
+  @each $modifier in $ui-states {
+    &.#{$modifier} {
+      @extend %message-#{$modifier};
+    }
+  }
+  @each $modifier in $radius-helpers {
+    &.#{$modifier} {
+      @extend %message-#{$modifier};
+    }
+  }
+  @each $modifier in $size-helpers {
+    &.#{$modifier} {
+      @extend %message-#{$modifier};
+    }
+  }
+  @each $modifier in $modifier-name {
+    &.#{$modifier} {
+      @extend %message-#{$modifier};
+    }
+  }
+}
+
+// button modifiers
+@mixin button_modifiers() {
+  @each $modifier in $button-modifiers {
+    &.#{$modifier} {
+      @extend %button-#{$modifier};
+    }
+  }
+  @each $modifier in $button-states {
+    &.#{$modifier} {
+      @extend %button-#{$modifier};
+    }
+  }
+  @each $modifier in $modifier-name {
+    &.#{$modifier} {
+      @extend %button-#{$modifier};
+    }
+  }
+}
+
+// box modifiers
+@mixin box-modifiers() {
+  @each $modifier in $ui-states {
+    &.#{$modifier} {
+      @extend %box-#{$modifier};
+    }
+  }
+  @each $modifier in $radius-helpers {
+    &.#{$modifier} {
+      @extend %box-#{$modifier};
+    }
+  }
+  @each $modifier in $size-helpers {
+    &.#{$modifier} {
+      @extend %box-#{$modifier};
+    }
+  }
+  @each $modifier in $modifier-name {
+    &.#{$modifier} {
+      @extend %box-#{$modifier};
+    }
+  }
+}
+

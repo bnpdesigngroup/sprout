@@ -1,0 +1,164 @@
+///////////////////////
+//   layout mixins   //
+///////////////////////
+
+// multi-columns
+@mixin _multi-column($count: 2) {
+  column-count: $count;
+}
+@mixin _multi-column-classes($target: false) {
+  @if $target and $target != '' {
+    $target: #{'-' + $target};
+  }@else{
+    $target: '';
+  }
+  @each $number in $multi-columns {
+    $selector: #{'.' + nth($numbers, $number) + '-column'};
+    @if $number > 1 {
+      $selector: #{$selector + 's'};
+    }
+    $selector: $selector + $target;
+    #{$selector} {
+      @include _multi-column($number);
+    }
+  }
+}
+
+// grid system
+@mixin _grid-column() {
+  float: left;
+  clear: none;
+  position: relative;
+  min-height: 1px;
+  &:nth-child(n) {
+    clear: none; // reset clear from adapters
+  }
+}
+@mixin _grid-block($num) {
+  width: percentage(1 / $num);
+  &:nth-child(n) {
+    clear: none; // reset clear from previous adapters
+  }
+  &:nth-child(#{$num}n+1) {
+    clear: both;
+  }
+}
+@mixin columns($fractions) {
+  @include _grid-column();
+  @include breakpoints() {
+    $width: $one-whole;
+    @if nth($fractions, $breakpoint-index) {
+      $width: nth($fractions, $breakpoint-index);
+    }
+    width: $width;
+  }
+}
+@mixin blocks($nums) {
+  @include _grid-column();
+  @include breakpoints() {
+    $num: 1;
+    @if nth($nums, $breakpoint-index) {
+      $num: nth($nums, $breakpoint-index)
+    }
+    @include _grid-block($num);
+  }
+}
+
+// responsive grid system
+@mixin grid-selectors($target: false, $selector-types: "%" ".") {
+  @if $target and $target != '' {
+    $target: #{'-' + $target};
+  }@else{
+    $target: '';
+  }
+  // generate placeholder for these columns
+  %grid-selectors-column#{$target} { 
+    @include _grid_column;
+  }
+  // generate responsive grid selectors
+  @each $selector in $selector-types {
+    @each $denominator in $grid-columns {
+      @for $numerator from 1 through $denominator - 1 { // i.e. one-tenth through nine-tenths
+        $grid-selector: '';
+        @if $numerator == 1 { // singular
+          $grid-selector: #{$selector + nth($numbers, $numerator) + '-' + nth($fractions-singular, $denominator) + $target};
+        }@else{               // plural
+          $grid-selector: #{$selector + nth($numbers, $numerator) + '-' + nth($fractions-plural, $denominator) + $target};
+        }
+        #{$grid-selector} {
+          @extend %grid-selectors-column#{$target};
+          width: percentage($numerator / $denominator);
+          @for $num from 1 through $denominator - $numerator {
+            &#{$selector + 'right-' + nth($numbers, $num) + $target} {
+              left: percentage($num / $denominator);
+            }
+            &#{$selector + 'left-' + nth($numbers, $num) + $target} {
+              right: percentage($num / $denominator);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// grid adapters
+@mixin grid-adapters($target: false, $selector-types: "%" ".") {
+  @if $target and $target != '' {
+    $target: #{'-' + $target};
+  }@else{
+    $target: '';
+  }
+  // generate grid block selectors
+  @each $selector in $selector-types {
+    @each $number in $grid-blocks {
+      #{$selector + nth($numbers, $number) + '-up' + $target} {
+        @include _grid-column();
+        @include _grid-block($number);
+      }
+    }
+  }
+}
+
+// grid collapse
+@mixin grid-collapse($target: false) {
+  $collapse-selectors: ":not(.no-collapse)";
+  @if $target {
+    $collapse-selectors: #{$collapse-selectors + ".collapse-on-" + $target};
+  }@else{
+    $collapse-selectors: #{$collapse-selectors + ':not([class*="collapse-on-"])'};
+  }
+  #{$grid-class-selectors} {
+    &#{$collapse-selectors} {
+      width:100%;
+      float:none;
+      clear:both;
+      @for $i from 1 through nth($grid-columns, length($grid-columns) - 1) {
+        &.right-#{nth($numbers, $i)} {
+          left: 0;
+        }
+        &.left-#{nth($numbers, $i)} {
+          right: 0;
+        }
+      }
+    }
+  }
+}
+
+// flexible box
+@mixin flex-wrapper() {
+  display: flex;
+}
+@mixin flex-box($values: 1) {
+  width: percent(1/$values);
+  flex: $values;
+}
+@mixin flex-order($val) {
+  order: $val;
+}
+@mixin vertical-center() {
+  display: box;
+  box-orient: vertical;
+  box-pack: center;
+}
+

@@ -1,0 +1,27 @@
+// =============================================
+//              Custom Settings
+//          Last Updated:2013-10-20
+// =============================================
+
+$small-tablet-width: 30.125em !default;
+$large-tablet-width: 48em !default;
+$desktop-width: 64em !default;
+$large-desktop-width: 80em !default;
+
+// framework configuration
+$root_path:                   "/wp-content/themes/sprout/assets/" !default;      // path to assets root (root-relative)
+$images_path:                 "img/" !default;  // path to images (relative from $root_path)
+$fonts_path:                  "fonts/" !default;    // path to fonts (relative from $root_path)
+
+// breakpoints
+$breakpoints: "mobile" "small-tablet" "large-tablet" "desktop" !default;
+$breakpoint-sizes: 0 $small-tablet-width $large-tablet-width $desktop-width !default;
+
+// grid system
+$grid-base: "desktop" !default;
+
+// navigation
+$navigation-base: "desktop" !default;
+
+// font awesome
+$fa-css-prefix: "icon" !default;

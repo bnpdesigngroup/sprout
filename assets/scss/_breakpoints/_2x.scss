@@ -1,0 +1,25 @@
+/****************************************************************
+ * Author: Justin Proffitt
+ * Stylesheet: 2x (Retina Displays)
+ *
+ * These styles will show on high resolution screens, like the
+ * iphone 4s, ipad 3, and next generation of tablets. Use this
+ * to replace low res images with higher res ones, lest your
+ * users notice the slight graininess with their amazing displays!
+ ****************************************************************/
+
+@media screen and (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+
+	.brand .high-res {
+
+		display: block;
+
+	}
+
+	.brand .high-res + img {
+
+		display: none;
+
+	}
+
+}

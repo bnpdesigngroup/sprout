@@ -1,0 +1,210 @@
+///////////////////////
+//    navigation     //
+///////////////////////
+
+@import "../../icons/variables";
+
+@mixin bar-mode($target: false) {
+  @if $target and $target != '' {
+    $target: #{'.' + $target};
+  }@else{
+    $target: '';
+  }
+  .nav#{$target} {
+    &:before {
+      display: none;
+    }
+
+    > ul {
+      display: block;
+      > li {
+        > a, > button {
+          border-top-width: 0;
+        }
+      }
+    }
+
+    li {
+      @include _pull-left;
+
+      &[role="menu"] {
+        &[aria-pressed="true"] {
+          > a, > button {
+            &:after {
+              content: $fa-var-caret-down;
+            }
+          }
+        }
+        > a, > button {
+          &:after {
+            @include _pull-right;
+            @include icon($fa-var-caret-down);
+          }
+        }
+        ul {
+          border-width: $border-thickness;
+
+          > li {
+            &:first-child {
+              a, button {
+                border-top-width: 0;
+              }
+            }
+          }
+        }
+      }
+
+      ul {
+        position: absolute;
+      }
+
+      li {
+        float: none;
+        &:last-child {
+          > {
+            a, button {
+              border-radius: 0 0 $default-radius $default-radius;
+            }
+          }
+        }
+
+        &[role="menu"],
+        &[role="menu"][aria-pressed="true"] {
+          > a, > button {
+            &:after {
+              content: $fa-var-caret-right;
+            }
+          }
+        }
+
+        ul {
+          top: 0;
+          left: 100%;
+          min-width: none;
+          border-radius: 0 $default-radius $default-radius $default-radius;
+
+          li {
+            &:first-child {
+              > {
+                a, button {
+                  border-radius: 0 $default-radius 0 0;
+                }
+              }
+            }
+            &:last-child {
+              > {
+                a, button {
+                  border-radius: 0 0 $default-radius $default-radius;
+                }
+              }
+            }
+          }
+        }
+
+        a, button {
+          padding-left: 1em;
+        }
+        li {
+          a, button {
+            padding-left: 1em;
+          }
+          li {
+            a, button {
+              padding-left: 1em;
+            }
+            li {
+              a, button {
+                padding-left: 1em;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    button.hamburger {
+      display: none;
+    }
+
+    &.vertical {
+      > ul {
+        > li:first-child {
+          > a, > button {
+            border-top-width: 0;
+          }
+        }
+        > li {
+          > a, > button {
+            border-top-width: $border-thickness;
+          }
+        }
+      }
+      li {
+        float: none;
+        &[role="menu"] {
+          > a, > button {
+            &:after {
+              content: $fa-var-caret-down;
+            }
+          }
+          &[aria-pressed="true"] {
+            > a, > button {
+              &:after {
+                content: $fa-var-caret-up;
+              }
+            }
+          }
+          ul {
+            > li {
+              &:first-child {
+                a, button {
+                  border-top-width: $border-thickness;
+                }
+              }
+            }
+          }
+        }
+        ul {
+          position: static;
+          border-width: 0;
+        }
+        li {
+          border-radius: 0;
+          &:last-child {
+            a, button {
+              border-radius: 0;
+            }
+          }
+          ul {
+            li {
+              &:first-child {
+                a, button {
+                  border-radius: 0;
+                }
+              }
+            }
+          }
+
+          a, button {
+            padding-left: 1.5em;
+          }
+          li {
+            a, button {
+              padding-left: 2em;
+            }
+            li {
+              a, button {
+                padding-left: 2.5em;
+              }
+              li {
+                a, button {
+                  padding-left: 3em;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

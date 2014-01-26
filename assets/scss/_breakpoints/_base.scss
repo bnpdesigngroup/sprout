@@ -1,0 +1,493 @@
+/****************************************************************
+ * Author: Justin Proffitt
+ * Stylesheet: Base
+ *
+ * These styles will show on all devices, so keep it light!
+ ****************************************************************/
+
+/********************************
+ * Global
+ ********************************/
+
+%p, %ul, %ol, %dl, %blockquote, %pre, %code {
+	@extend %gap-bottom;
+}
+
+.container {
+
+	@include _pad-left();
+	@include _pad-right();
+
+}
+
+/**
+ * Header
+ */
+
+header[role="banner"] {
+
+}
+
+/**
+ * Header - Banner
+ */
+
+.brand {
+
+	.high-res {
+
+	}
+
+}
+
+
+/**
+ * Header - Aside
+ */
+
+.tagline {
+
+}
+
+/**
+ * Header - Contact Information
+ */
+
+.contact {
+
+}
+
+/**
+ * Header - Navigation
+ */
+
+.nav {
+
+}
+
+/**
+ * Document
+ */
+
+div[role="document"] {
+
+}
+
+/**
+ * Document - Content
+ */
+
+/**
+ * Document - Content - Main
+ */
+
+.main {
+
+}
+
+// Comment List
+
+#comments {
+
+}
+
+	.media-list {
+
+		& > li {
+
+			list-style: none;
+
+		}
+
+	}
+
+		.avatar {
+
+			@include _gap-right();
+			@include _gap-bottom();
+
+		}
+
+		.media-body {
+
+			p {
+
+				clear: both;
+
+			}
+
+		}
+
+// Comment Form
+
+#commentform {}
+
+	.form-group {
+
+		@include _gap-bottom();
+
+	}
+
+// Pagination Navigation
+
+.pager {
+
+	list-style: none;
+
+	@include _zero();
+	@include _gap-bottom();
+	@include _clear();
+
+	.previous {
+
+		@include _pull-left();
+
+	}
+
+	.next {
+
+		@include _pull-right();
+
+	}
+
+}
+
+/**
+ * Document - Content - Sidebar
+ */
+
+.sidebar {
+
+	h3 {
+
+	}
+
+	ul {
+
+		list-style: none;
+
+	}
+
+}
+
+/**
+ * Footer
+ */
+
+footer[role="contentinfo"] {
+
+}
+
+/**
+ * Footer - Social
+ */
+
+.social-links {
+
+	list-style: none;
+	margin-left: 0;
+
+	&:before {
+
+		content: "Follow:";
+
+		@include _pad-right(0.5);
+
+	}
+
+	li {
+
+		display: inline-block;
+
+	}
+
+	a {
+
+		display: block;
+		width: 2em;
+		color: $black;
+		font-size: 1.15em;
+		text-decoration: none;
+		text-align: center;
+
+		&:before {
+
+			display: none;
+
+		}
+
+		&:hover {
+
+			&.dribbble {
+
+				color: #EA4C89;
+
+			}
+
+			&.dropbox {
+
+				color: #007FE1;
+
+			}
+
+			&.facebook {
+
+
+				color: #3A5898;
+
+			}
+
+			&.flickr {
+
+				color: #FF0083;
+
+			}
+
+			&.foursquare {
+
+				color: #0A9ACF;
+
+			}
+
+			&.github {
+
+				color: #171516;
+
+			}
+
+			&.google-plus {
+
+				color: #DE492F;
+
+			}
+
+			&.instagram {
+
+				color: #231f20;
+
+			}
+
+			&.linkedin {
+
+				color: #007ab8;
+
+			}
+
+			&.pinterest {
+
+				color: #CA2128;
+
+			}
+
+			&.stackoverflow {
+
+				color: #FF7312;
+
+			}
+
+			&.tumblr {
+
+				color: #44546b;
+
+			}
+
+			&.twitter {
+
+				color: #00abf0;
+
+			}
+
+			&.youtube {
+
+				color: #cd332d;
+
+			}
+
+		}
+
+	}
+
+
+}
+
+/**
+ * Widgets
+ */
+
+.widget {
+
+	@include _gap-bottom();
+
+}
+
+/********************************
+ * Home Page
+ ********************************/
+
+.home {
+
+	/**
+	 * Document
+	 */
+
+	/**
+	 * Document - Content
+	 */
+
+	/**
+	 * Document - Content - Main
+	 */
+
+	.page-header,
+	.page-header h1 {
+
+		height: 0;
+		visibility: hidden;
+
+		@include _zero();
+
+	}
+
+}
+
+/********************************
+ * Blog
+ ********************************/
+
+/********************************
+ * Archive
+ ********************************/
+
+/********************************
+ * Post
+ ********************************/
+
+/********************************
+ * Page
+ ********************************/
+
+/********************************
+ * Search
+ ********************************/
+
+/********************************
+ * 404 - Not Found
+ ********************************/
+
+/********************************
+ * WordPress Core
+ ********************************/
+
+/**
+ * Generated Classes
+ * (See: http://codex.wordpress.org/CSS#WordPress_Generated_Classes)
+ */
+
+.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.aligncenter,
+div.aligncenter {
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+.alignright {
+    float:right;
+    margin: 5px 0 20px 20px;
+}
+
+.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+.aligncenter {
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+a img.alignright {
+    float: right;
+    margin: 5px 0 20px 20px;
+}
+
+a img.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+a img.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+a img.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.wp-caption {
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    max-width: 96%; /* Image does not overflow the content area */
+    padding: 5px 3px 10px;
+    text-align: center;
+}
+
+.wp-caption.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignleft {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignright {
+    margin: 5px 0 20px 20px;
+}
+
+.wp-caption img {
+    border: 0 none;
+    height: auto;
+    margin: 0;
+    max-width: 98.5%;
+    padding: 0;
+    width: auto;
+}
+
+.wp-caption p.wp-caption-text {
+    font-size: 11px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0 4px 5px;
+}
+
+/**
+ * Admin Bar
+ */
+
+#wpadminbar {
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	border: none;
+	border-radius: 0;
+
+	&:before {
+
+		display: none;
+
+	}
+
+	.quicklinks {
+
+		background: none;
+		border: none;
+
+
+	}
+
+}

@@ -1,0 +1,1 @@
+<?php global $sprout; dynamic_sidebar($sprout->sidebars->get_sidebar()); ?>

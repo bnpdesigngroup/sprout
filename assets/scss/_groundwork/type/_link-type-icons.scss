@@ -1,0 +1,407 @@
+// =============================================
+//             Link Type Icons
+//          Last Updated:2013-9-5
+// =============================================
+
+
+$link-type-icons:           true !default;
+$link-type-colors:          false !default;
+$modifier-exclusions:       "";
+@for $i from 1 through length($modifier-name) {
+  $modifier-exclusions: $modifier-exclusions + ":not(." + nth($modifier-name, $i) + ")";
+}
+
+@include output() {
+
+  @if $link-type-icons {
+    a:before, a:after {
+      @include FontAwesome();
+      @extend %inline-block;
+      text-decoration: none;
+    }
+    a:before { padding-right: 0.25em; }
+    a:after  { padding-left: 0.25em; }
+
+    a:not(.noicon), button:not(.noicon) {
+
+      &[rel="home"]:before {
+        content: $fa-var-home;
+      }
+
+      &[rel="search"]:before {
+        content: $fa-var-search;
+      }
+
+      &[rel="author"]:before {
+        content: $fa-var-user;
+      }
+
+      &[rel="help"]:before {
+        content: $fa-var-question-circle;
+      }
+
+      &[rel="tag"]:before {
+        content: $fa-var-tag;
+      }
+
+      &[rel="bookmark"]:before {
+        content: $fa-var-bookmark;
+      }
+
+      &[rel="prev"],
+      &[rel="previous"] {
+        &:before {
+          content: $fa-var-arrow-circle-left;
+        }
+      }
+
+      &[rel="next"]:after {
+        content: $fa-var-arrow-circle-right;
+      }
+
+      &[rel="directory"]:after {
+        content: $fa-var-folder-open-o;
+      }
+
+      &[rel="payment"]:after {
+        content: $fa-var-money;
+      }
+    }
+
+    a:not(.noicon) {
+
+      &[href^="#"]:not([href="#"]):after {
+        content: $fa-var-link;
+      }
+
+      &[href^="https:"]:after {
+        content: $fa-var-lock;
+      }
+
+      &[target="_blank"],
+      &[rel="external"] {
+        &:after {
+          content: $fa-var-external-link;
+        }
+      }
+
+      &[href^="view-source:"] {
+        &:after {
+          content: $fa-var-code;
+        }
+      }
+
+      &[href^="mailto:"] {
+        &:before {
+          content: $fa-var-envelope;
+        }
+      }
+
+      &[href^="tel:"] {
+        &:before {
+          content: $fa-var-phone-square;
+        }
+      }
+
+      &[href^="skype:"] {
+        &:before {
+          content: $fa-var-skype;
+        }
+      }
+
+      &[href$=".pdf"]:after {
+        content: $fa-var-file-o;
+      }
+
+      &[href$=".doc"]:after {
+        content: $fa-var-file-text;
+      }
+
+      &[href$=".txt"]:after,
+      &[href$=".md"]:after {
+        content: $fa-var-file-text-o;
+      }
+
+      &[href$=".jpg"]:after,
+      &[href$=".jpeg"]:after,
+      &[href$=".png"]:after,
+      &[href$=".gif"]:after,
+      &[href$=".svg"]:after {
+        content: $fa-var-picture-o;
+      }
+
+      &[href$=".exe"]:after {
+        content: $fa-var-floppy-o;
+      }
+
+      &[href*=".zip"]:after,
+      &[href*=".tar"]:after,
+      &[href*=".gz"]:after {
+        content: $fa-var-download;
+      }
+
+      &[href$=".rss"],
+      &[href$="rss.xml"],
+      &[href*="/feed/"],
+      &[href*="/rss/"] {
+        &:before {
+          content: $fa-var-rss-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="twitter.com"] {
+        &:before {
+          content: $fa-var-twitter-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="pinterest.com"] {
+        &:before {
+          content: $fa-var-pinterest-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="facebook.com"] {
+        &:before {
+          content: $fa-var-facebook-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="linkedin.com"] {
+        &:before {
+          content: $fa-var-linkedin-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="tumblr.com"] {
+        &:before {
+          content: $fa-var-tumblr-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="plus.google.com"] {
+        &:before {
+          content: $fa-var-google-plus-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="youtube.com"],
+      &[href*="youtu.be"] {
+        &:before {
+          content: $fa-var-youtube-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="instagram.com"] {
+        &:before {
+          content: $fa-var-instagram;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="flickr.com"] {
+        &:before {
+          content: $fa-var-flickr;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="foursquare.com"] {
+        &:before {
+          content: $fa-var-foursquare;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="dribbble.com"] {
+        &:before {
+          content: $fa-var-dribbble;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="dropbox.com"] {
+        &:before {
+          content: $fa-var-dropbox;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="github.com"] {
+        &:before {
+          content: $fa-var-github-square;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="stackoverflow.com"] {
+        &:before {
+          content: $fa-var-stack-overflow;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      &[href*="trello.com"] {
+        &:before {
+          content: $fa-var-trello;
+        }
+        &:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+
+      @if $link-type-colors {
+        &[href*="@gmail.com"]#{$modifier-exclusions} {
+          &:before {
+            color: $gmail;
+          }
+        }
+        &[href^="skype:"] {
+          &:before {
+            color: $skype;
+          }
+        }
+        &[href$=".rss"],
+        &[href$="rss.xml"],
+        &[href*="/feed/"],
+        &[href*="/rss/"] {
+          &:before {
+            color: $rss;
+          }
+        }
+        &[href*="twitter.com"] {
+          &:before {
+            color: $twitter;
+          }
+        }
+        &[href*="pinterest.com"] {
+          &:before {
+            color: $pinterest;
+          }
+        }
+        &[href*="trello.com"] {
+          &:before {
+            color: $trello;
+          }
+        }
+        &[href*="stackoverflow.com"] {
+          &:before {
+            color: $stackoverflow;
+          }
+        }
+        &[href*="github.com"] {
+          &:before {
+            color: $github;
+          }
+        }
+        &[href*="dropbox.com"] {
+          &:before {
+            color: $dropbox;
+          }
+        }
+        &[href*="facebook.com"] {
+          &:before {
+            color: $facebook;
+          }
+        }
+        &[href*="linkedin.com"] {
+          &:before {
+            color: $linkedin;
+          }
+        }
+        &[href*="tumblr.com"] {
+          &:before {
+            color: $tumblr;
+          }
+        }
+        &[href*="plus.google.com"] {
+          &:before {
+            color: $googleplus;
+          }
+        }
+        &[href*="youtube.com"],
+        &[href*="youtu.be"] {
+          &:before {
+            color: $youtube;
+          }
+        }
+        &[href*="instagram.com"] {
+          &:before {
+            color: $instagram;
+          }
+        }
+        &[href*="flickr.com"] {
+          &:before {
+            color: $flickr;
+          }
+        }
+        &[href*="foursquare.com"] {
+          &:before {
+            color: $foursquare;
+          }
+        }
+        &[href*="dribbble.com"] {
+          &:before {
+            color: $dribbble;
+          }
+        }
+      }
+    }
+
+  }
+
+}

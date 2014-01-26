@@ -1,0 +1,49 @@
+// =============================================
+//            GroundworkCSS Reset
+//          Last Updated:2013-10-19
+// =============================================
+
+%everything {
+  box-sizing: border-box;
+}
+
+%document {
+  -webkit-text-size-adjust: none; // disable iOS auto font resizing
+}
+
+%html-elements {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+%block-elements {
+  display: block;
+}
+
+%table-elements {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+@include output() {
+
+  @if $reset {
+    *, *:after, *:before {
+      @extend %everything;
+    }
+    @each $element in $reset-elements {
+      #{$element} { @extend %html-elements; }
+    }
+    header, footer, aside, menu, nav, section, article, details {
+      @extend %block-elements;
+    }
+    table {
+      @extend %table-elements;
+    }
+    script { display: none !important; } // ensure embedded scripts don't mess up inline lists, etc.
+  }
+
+}

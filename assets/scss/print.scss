@@ -1,0 +1,15 @@
+/****************************************************************
+ * Author: Justin Proffitt
+ * Stylesheet: Print Stylesheet
+ *
+ * This stylesheet contains all the information for displaying
+ * the site as a printed page
+ ****************************************************************/
+
+.hide-print {
+	display: none;
+}
+
+.show-print {
+	display: block;
+}

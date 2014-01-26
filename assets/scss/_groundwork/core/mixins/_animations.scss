@@ -1,0 +1,25 @@
+///////////////////////
+//    animations     //
+///////////////////////
+
+@mixin animation($animation: spin, $count: infinite, $speed: 2s, $easing: linear) {
+  animation: $animation $speed $easing;
+  animation-iteration-count: $count;
+}
+
+@mixin spin($count: infinite, $speed: 2s) {
+  @include animation(spin, $count, $speed);
+}
+
+@mixin _spin                      { @include _inline; @include spin; }
+@mixin _spin-once                 { @include _inline; @include spin(1); }
+@mixin _spin-twice                { @include _inline; @include spin(2); }
+@mixin _spin-thrice               { @include _inline; @include spin(3); }
+@mixin _spin-fast                 { @include _inline; @include spin(infinite,1s); }
+@mixin _spin-fast-once            { @include _inline; @include spin(1,1s); }
+@mixin _spin-fast-twice           { @include _inline; @include spin(2,1s); }
+@mixin _spin-fast-thrice          { @include _inline; @include spin(3,1s); }
+@mixin _spin-slow                 { @include _inline; @include spin(infinite,5s); }
+@mixin _spin-slow-once            { @include _inline; @include spin(1,5s); }
+@mixin _spin-slow-twice           { @include _inline; @include spin(2,5s); }
+@mixin _spin-slow-thrice          { @include _inline; @include spin(3,5s); }

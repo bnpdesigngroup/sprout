@@ -1,0 +1,113 @@
+/****************************************************************
+ * Author: Justin Proffitt
+ * Stylesheet: Small Monitors and Up
+ *
+ * These styles will show on larger devices like monitors
+ ****************************************************************/
+
+@include respond-min($desktop-width) {
+
+/********************************
+ * Global
+ ********************************/
+
+/**
+ * Header
+ */
+
+/**
+ * Header - Banner
+ */
+
+/**
+ * Header - Aside
+ */
+
+/**
+ * Header - Contact Information
+ */
+
+/**
+ * Header - Navigation
+ */
+
+/**
+ * Document
+ */
+
+/**
+ * Document - Content
+ */
+
+/**
+ * Document - Content - Main
+ */
+
+/**
+ * Document - Content - Sidebar
+ */
+
+/**
+ * Footer
+ */
+
+/**
+ * Footer - Navigation
+ */
+
+/**
+ * Fixed Footer
+ */
+
+/*
+.js {
+
+	footer[role="contentinfo"] {
+
+		.container {
+
+			position: fixed;
+			bottom: 0;
+
+		}
+
+		textarea {
+
+			resize: none;
+
+		}
+
+	}
+
+}
+*/
+
+/********************************
+ * Front Page
+ ********************************/
+
+/********************************
+ * Blog
+ ********************************/
+
+/********************************
+ * Archive
+ ********************************/
+
+/********************************
+ * Post
+ ********************************/
+
+/********************************
+ * Page
+ ********************************/
+
+/********************************
+ * Search
+ ********************************/
+
+/********************************
+ * 404 - Not Found
+ ********************************/
+	
+}

@@ -1,0 +1,32 @@
+// =============================================
+//             Flexbox Helpers
+//          Last Updated:2013-8-16
+// =============================================
+
+%flex-wrapper {
+  @include flex-wrapper();
+}
+
+%flex-box {
+  @include flex-box();
+}
+
+%vertical-center {
+  @include vertical-center();
+}
+
+@include output() {
+
+  @if $flexbox-classes {
+    .flex-wrapper {
+      @extend %flex-wrapper;
+    }
+    .flex-box {
+      @extend %flex-box;
+    }
+    .vertical-center {
+      @extend %vertical-center;
+    }
+  }
+
+}

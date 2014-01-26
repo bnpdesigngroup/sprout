@@ -1,0 +1,11 @@
+///////////////////////
+//      shadows      //
+///////////////////////
+
+// filter drop shadow
+@mixin filter-shadow($color: rgba(0,0,0,0.2), $blur: 0, $x: 0, $y: 0) {
+  filter: drop-shadow($x $y $blur $color);
+  @media #{$retina} {
+    transform: translateZ(0);
+  }
+}

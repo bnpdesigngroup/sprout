@@ -1,0 +1,121 @@
+// =============================================
+//    Fractional grid system by Gary Hepting
+//          Last Updated:2013-8-16
+//
+//    ***** REQUIRES BORDER BOX SIZING *****
+//
+// =============================================
+
+$grid-class-selectors:  '';
+$grid-count: 0;
+@each $denominator in $grid-columns {
+  $grid-count: $grid-count + 1;
+  @for $numerator from 1 through $denominator - 1 {
+    @if $numerator == 1 {
+      $grid-class-selectors: #{$grid-class-selectors + '.' + nth($numbers, $numerator) + '-' + nth($fractions-singular, $denominator)};
+    }@else {
+      $grid-class-selectors: #{$grid-class-selectors + ', ' + '.' + nth($numbers, $numerator) + '-' + nth($fractions-plural, $denominator)};
+    }
+    @if $grid-count < length($grid-columns) {
+      $grid-class-selectors: #{$grid-class-selectors + ', '};
+    }
+  }
+}
+
+///////////////////////////////////////////////
+//    grid system - placeholders & classes   //
+///////////////////////////////////////////////
+
+%container {
+  @if $responsive {
+    max-width: $container-width;
+  } @else {
+    width: $container-width;
+  }
+  margin: 0 auto;
+}
+
+%row {
+  @include _clear;
+  width: $one-whole;
+}
+
+%guttered {
+  width: auto;
+  @include _offset-left();
+  & > * {
+    @include _pad-left();
+  }
+}
+
+%half-guttered {
+  width: auto;
+  @include _offset-left(0.5);
+  & > * {
+    @include _pad-left(0.5);
+  }
+}
+
+%double-guttered {
+  width: auto;
+  @include _offset-left(2);
+  & > * {
+    @include _pad-left(2);
+  }
+}
+
+%triple-guttered {
+  width: auto;
+  @include _offset-left(3);
+  & > * {
+    @include _pad-left(3);
+  }
+}
+
+%column {
+  @include _grid-column;
+}
+
+%centered-column {
+  float: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@include output() {
+
+  @if $grid-classes {
+    .container          { @extend %container; }
+    .row                { @extend %row;
+      &.guttered {
+        @extend %guttered;
+      }
+      &.half-guttered {
+        @extend %half-guttered;
+      }
+      &.double-guttered {
+        @extend %double-guttered;
+      }
+      &.triple-guttered {
+        @extend %double-guttered;
+      }
+    }
+    .column             { @extend %column; }
+    .centered           { @extend %centered-column; }
+  }
+
+  // generate grid selectors
+  @include breakpoints($append: "none", $base: $grid-base) {
+    $grid-selector-types: "%";
+    @if $grid-classes {
+      $grid-selector-types: "%" ".";
+    }
+    $grid-block-selector-types: "%";
+    @if $grid-block-classes {
+      $grid-block-selector-types: "%" ".";
+    }
+    @include grid-selectors($breakpoint-target, $grid-selector-types);
+    @include grid-adapters($breakpoint-target, $grid-block-selector-types);
+  }
+
+}

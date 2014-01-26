@@ -1,0 +1,84 @@
+// ============================================
+//       GroundworkCSS by Gary Hepting
+//          Last Updated:2013-11-23
+// ============================================
+
+
+// CUSTOM SETTINGS
+@import "settings";         // customizable settings
+
+
+
+// REQUIRED COMPONENTS
+
+// Groundwork Core
+@import "core/all-core";
+  // @import "compass";
+  // @import "core/defaults";
+  // @import "core/mixins";
+  // @import "core/reset";
+  // @import "core/global";
+
+
+
+// RECOMMENDED COMPONENTS
+
+// Layout
+@import "layout/all-layout";
+  // @import "core/helpers";
+  // @import "core/grid";
+  // @import "core/flex-box";
+
+// Font Awesome Icons (required by Typography and UI components)
+@import "icons/font-awesome";
+  // @import "icons/variables";
+  // @import "icons/mixins";
+  // @import "icons/path";
+  // @import "icons/core";
+  // @import "icons/larger";
+  // @import "icons/fixed-width";
+  // @import "icons/list";
+  // @import "icons/bordered-pulled";
+  // @import "icons/spinning";
+  // @import "icons/rotated-flipped";
+  // @import "icons/stacked";
+  // @import "icons/icons";
+
+
+
+// OPTIONAL COMPONENTS
+
+// Typography
+@import "type/all-type";
+  // @import "type/link-type-icons";
+  // @import "type/typography";
+  // @import "type/webfonts";
+
+// UI
+@import "ui/all-ui";
+  // @import "ui/boxes";
+  // @import "ui/buttons";
+  // @import "ui/forms";
+  // @import "ui/messages";
+  // @import "ui/nav";
+  // @import "ui/tables";
+  // @import "ui/tabs";
+
+// Animations
+@import "anim/all-animations";
+  // @import "anim/bounce";
+  // @import "anim/fade";
+  // @import "anim/flash";
+  // @import "anim/flip";
+  // @import "anim/hinge";
+  // @import "anim/lightspeed";
+  // @import "anim/pulse";
+  // @import "anim/roll";
+  // @import "anim/rotate";
+  // @import "anim/shake";
+  // @import "anim/spin";
+  // @import "anim/swing";
+  // @import "anim/tada";
+  // @import "anim/wiggle";
+  // @import "anim/wobble";
+  // @import "anim/slide";

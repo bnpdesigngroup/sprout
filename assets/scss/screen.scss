@@ -1,0 +1,44 @@
+/****************************************************************
+ * Author: Justin Proffitt
+ * Stylesheet: Main Stylesheet
+ *
+ * This stylesheet contains all the information for displaying
+ * the site as a responsive web page
+ ****************************************************************/
+
+
+///////////////
+// Framework //
+///////////////
+
+// Load main package
+
+@import "_groundwork/groundwork";
+
+/////////////////
+// Breakpoints //
+/////////////////
+
+// Base
+
+@import "_breakpoints/base";
+
+// Small Tablets and up
+
+@import "_breakpoints/small-tablet";
+
+// Large Tablets and up
+
+@import "_breakpoints/large-tablet";
+
+// Small monitors
+
+@import "_breakpoints/desktop";
+
+// Big monitors
+
+@import "_breakpoints/large-desktop";
+
+// Retina displays (iphone 4s, ipad 3, iconia tablet, etc.)
+
+@import "_breakpoints/2x";

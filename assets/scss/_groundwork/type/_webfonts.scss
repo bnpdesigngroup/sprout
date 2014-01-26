@@ -1,0 +1,52 @@
+// =============================================
+//                 Web Fonts
+//          Last Updated:2013-8-16
+// =============================================
+
+@for $i from 1 through length($web-font-files) {
+   %#{nth($web-font-names, $i)} {
+    @include font-stack(#{nth($web-font-names, $i)});
+  }
+  @include output() {
+    @font-face {
+      font-family: '#{nth($web-font-names, $i)}';
+      font-style: normal;
+      font-weight: normal;
+      src: url('#{$root_path + $fonts_path + nth($web-font-files, $i)}.eot');
+      src: url('#{$root_path + $fonts_path + nth($web-font-files, $i)}.eot#iefix') format('embedded-opentype'), 
+           url('#{$root_path + $fonts_path + nth($web-font-files, $i)}.woff') format('woff'), 
+           url('#{$root_path + $fonts_path + nth($web-font-files, $i)}.ttf') format('truetype'),
+           url('#{$root_path + $fonts_path + nth($web-font-files, $i)}.svg##{nth($web-font-names, $i)}') format('svg');
+    }
+    @if $web-font-classes {
+      .#{nth($web-font-names, $i)} {
+        @extend %#{nth($web-font-names, $i)};
+      }
+    }
+  }
+}
+
+@if $placeholder-fonts {
+  @for $i from 1 through length($placeholder-font-files) {
+    %#{nth($placeholder-font-names, $i)} {
+      @include font-stack(#{nth($placeholder-font-names, $i)});
+    }
+    @include output() {
+      @font-face {
+        font-family: '#{nth($placeholder-font-names, $i)}';
+        font-style: normal;
+        font-weight: normal;
+        src: url('#{$root_path + $fonts_path + nth($placeholder-font-files, $i)}.eot');
+        src: url('#{$root_path + $fonts_path + nth($placeholder-font-files, $i)}.eot#iefix') format('embedded-opentype'), 
+             url('#{$root_path + $fonts_path + nth($placeholder-font-files, $i)}.woff') format('woff'), 
+             url('#{$root_path + $fonts_path + nth($placeholder-font-files, $i)}.ttf') format('truetype'),
+             url('#{$root_path + $fonts_path + nth($placeholder-font-files, $i)}.svg##{nth($placeholder-font-names, $i)}') format('svg');
+      }
+      @if $placeholder-font-classes {
+        .#{nth($placeholder-font-names, $i)} {
+          @extend %#{nth($placeholder-font-names, $i)};
+        }
+      }
+    }
+  }
+}

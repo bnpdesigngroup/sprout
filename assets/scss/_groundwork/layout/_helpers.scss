@@ -1,0 +1,489 @@
+// =============================================
+//              Layout Helpers
+//          Last Updated:2013-8-16
+// =============================================
+
+///////////////////////
+//    placeholders   //
+///////////////////////
+
+
+// spacer placeholders
+%padded               { @include _padded; }
+%half-padded          { @include _padded(0.5); }
+%double-padded        { @include _padded(2); }
+%triple-padded        { @include _padded(3); }
+
+%pad-top              { @include _pad-top; }
+%half-pad-top         { @include _pad-top(0.5); }
+%double-pad-top       { @include _pad-top(2); }
+%triple-pad-top       { @include _pad-top(3); }
+
+%pad-right            { @include _pad-right; }
+%half-pad-right       { @include _pad-right(0.5); }
+%double-pad-right     { @include _pad-right(2); }
+%triple-pad-right     { @include _pad-right(3); }
+
+%pad-bottom           { @include _pad-bottom; }
+%half-pad-bottom      { @include _pad-bottom(0.5); }
+%double-pad-bottom    { @include _pad-bottom(2); }
+%triple-pad-bottom    { @include _pad-bottom(3); }
+
+%pad-left             { @include _pad-left; }
+%half-pad-left        { @include _pad-left(0.5); }
+%double-pad-left      { @include _pad-left(2); }
+%triple-pad-left      { @include _pad-left(3); }
+
+%gapped               { @include _gapped; }
+%half-gapped          { @include _gapped(0.5); }
+%double-gapped        { @include _gapped(2); }
+%triple-gapped        { @include _gapped(3); }
+
+%gap-top              { @include _gap-top; }
+%half-gap-top         { @include _gap-top(0.5); }
+%double-gap-top       { @include _gap-top(2); }
+%triple-gap-top       { @include _gap-top(3); }
+
+%gap-right            { @include _gap-right; }
+%half-gap-right       { @include _gap-right(0.5); }
+%double-gap-right     { @include _gap-right(2); }
+%triple-gap-right     { @include _gap-right(3); }
+
+%gap-bottom           { @include _gap-bottom; }
+%half-gap-bottom      { @include _gap-bottom(0.5); }
+%double-gap-bottom    { @include _gap-bottom(2); }
+%triple-gap-bottom    { @include _gap-bottom(3); }
+
+%gap-left             { @include _gap-left; }
+%half-gap-left        { @include _gap-left(0.5); }
+%double-gap-left      { @include _gap-left(2); }
+%triple-gap-left      { @include _gap-left(3); }
+
+%offset               { @include _offset; }
+%half-offset          { @include _offset(0.5); }
+%double-offset        { @include _offset(2); }
+%triple-offset        { @include _offset(3); }
+
+%offset-top           { @include _offset-top; }
+%half-offset-top      { @include _offset-top(0.5); }
+%double-offset-top    { @include _offset-top(2); }
+%triple-offset-top    { @include _offset-top(3); }
+
+%offset-right         { @include _offset-right; }
+%half-offset-right    { @include _offset-right(0.5); }
+%double-offset-right  { @include _offset-right(2); }
+%triple-offset-right  { @include _offset-right(3); }
+
+%offset-bottom        { @include _offset-bottom; }
+%half-offset-bottom   { @include _offset-bottom(0.5); }
+%double-offset-bottom { @include _offset-bottom(2); }
+%triple-offset-bottom { @include _offset-bottom(3); }
+
+%offset-left          { @include _offset-left; }
+%half-offset-left     { @include _offset-left(0.5); }
+%double-offset-left   { @include _offset-left(2); }
+%triple-offset-left   { @include _offset-left(3); }
+
+%zero                 { @include _zero; }
+
+%clear, %clearfix {
+  clear: both;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+
+// positioning placeholders
+%fixed                { @include _fixed; }
+%fixed-top            { @include _fixed(top); }
+%fixed-right          { @include _fixed(right); }
+%fixed-bottom         { @include _fixed(bottom); }
+%fixed-left           { @include _fixed(left); }
+%fixed-middle         { @include _fixed(middle); }
+%fixed-center         { @include _fixed(center); }
+
+%fixed-top-right      { @include _fixed((top, right)); }
+%fixed-top-left       { @include _fixed((top, left)); }
+%fixed-top-center     { @include _fixed((top, center)); }
+%fixed-middle-right   { @include _fixed((middle, right)); }
+%fixed-middle-left    { @include _fixed((middle, left)); }
+%fixed-middle-center  { @include _fixed((middle, center)); }
+%fixed-bottom-right   { @include _fixed((bottom, right)); }
+%fixed-bottom-left    { @include _fixed((bottom, left)); }
+%fixed-bottom-center  { @include _fixed((bottom, center)); }
+
+%absolute             { @include _absolute; }
+%absolute-top         { @include _absolute(top); }
+%absolute-right       { @include _absolute(right); }
+%absolute-bottom      { @include _absolute(bottom); }
+%absolute-left        { @include _absolute(left); }
+%absolute-middle      { @include _absolute(middle); }
+%absolute-center      { @include _absolute(center); }
+
+%absolute-top-right      { @include _absolute((top, right)); }
+%absolute-top-left       { @include _absolute((top, left)); }
+%absolute-top-center     { @include _absolute((top, center)); }
+%absolute-middle-right   { @include _absolute((middle, right)); }
+%absolute-middle-left    { @include _absolute((middle, left)); }
+%absolute-middle-center  { @include _absolute((middle, center)); }
+%absolute-bottom-right   { @include _absolute((bottom, right)); }
+%absolute-bottom-left    { @include _absolute((bottom, left)); }
+%absolute-bottom-center  { @include _absolute((bottom, center)); }
+
+%relative             { @include _relative; }
+
+%static               { @include _static; }
+
+
+// display placeholders
+%inline               { @include _inline; }
+%inline-block         { @include _inline-block; }
+%block                { @include _block; }
+%hidden               { @include _hidden; }
+
+
+// size placeholders
+%small                { @include _small; }
+%medium               { @include _medium; }
+%big, %large          { @include _large; }
+
+
+// font style placeholders
+%em, %italic          { @include _italic; }
+%b, %bold, %strong    { @include _bold; }
+
+
+// layout placeholders
+%pull-right           { @include _pull-right; }
+%pull-left            { @include _pull-left; }
+%pull-none            { @include _pull-none; }
+%center               { @include _center; }
+
+
+// border placeholders
+%bordered             { @include _bordered; }
+%border-top           { @include _border-top; }
+%border-right         { @include _border-right; }
+%border-bottom        { @include _border-bottom; }
+%border-left          { @include _border-left; }
+
+
+// typography placeholders
+%align-top            { @include _align-top; } // must have height (experimental)
+%align-right          { @include _align-right; }
+%align-bottom         { @include _align-bottom; } // must have height (experimental)
+%align-left           { @include _align-left; }
+%align-center         { @include _align-center; }
+%justify              { @include _justify; }
+%unstyled             { @extend %zero; list-style: none; }
+%truncate             { @include _truncate; }
+
+
+// radius placeholder
+%square               { @include _square; }
+%rounded              { @include _rounded; }
+%round                { @include _round; }
+
+
+// rotation placeholders
+%rotate-90            { @include _rotate-90; }
+%rotate-90-ctr        { @include _rotate-90-ctr; }
+%rotate-180           { @include _rotate-180; }
+%rotate-180-ctr       { @include _rotate-180-ctr; }
+%rotate-270           { @include _rotate-270; }
+%rotate-270-ctr       { @include _rotate-270-ctr; }
+%rotate-360           { @include _rotate-360; }
+%rotate-360-ctr       { @include _rotate-360-ctr; }
+
+@include output() {
+
+  @include breakpoints($base: $helper-base) {
+
+    // layout classes
+    @if $layout-classes {
+      %bp-inline#{$breakpoint-target}          { @include _inline; }
+      %bp-inline-block#{$breakpoint-target}    { @include _inline-block; }
+      %bp-block#{$breakpoint-target}           { @include _block; }
+      %bp-hidden#{$breakpoint-target}          { @include _hidden; }
+      %bp-clear#{$breakpoint-target}           { @include _clear; }
+      %bp-center#{$breakpoint-target}          { @include _center; }
+      %bp-pull-right#{$breakpoint-target}      { @include _pull-right; }
+      %bp-pull-left#{$breakpoint-target}       { @include _pull-left; }
+      %bp-pull-none#{$breakpoint-target}       { @include _pull-none; }
+      %bp-zero#{$breakpoint-target}            { @include _zero; }      
+      @each $helper in $layout-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+      }
+    }
+
+
+    // positioning classes
+    @if $positioning-classes {
+      %bp-fixed#{$breakpoint-target}                { @include _fixed; }
+      %bp-fixed-top#{$breakpoint-target}            { @include _fixed(top); }
+      %bp-fixed-right#{$breakpoint-target}          { @include _fixed(right); }
+      %bp-fixed-bottom#{$breakpoint-target}         { @include _fixed(bottom); }
+      %bp-fixed-left#{$breakpoint-target}           { @include _fixed(left); }
+      %bp-fixed-middle#{$breakpoint-target}         { @include _fixed(middle); }
+      %bp-fixed-center#{$breakpoint-target}         { @include _fixed(center); }
+
+      %bp-fixed-top-right#{$breakpoint-target}      { @include _fixed((top, right)); }
+      %bp-fixed-top-left#{$breakpoint-target}       { @include _fixed((top, left)); }
+      %bp-fixed-top-center#{$breakpoint-target}     { @include _fixed((top, center)); }
+      %bp-fixed-middle-right#{$breakpoint-target}   { @include _fixed((middle, right)); }
+      %bp-fixed-middle-left#{$breakpoint-target}    { @include _fixed((middle, left)); }
+      %bp-fixed-middle-center#{$breakpoint-target}  { @include _fixed((middle, center)); }
+      %bp-fixed-bottom-right#{$breakpoint-target}   { @include _fixed((bottom, right)); }
+      %bp-fixed-bottom-left#{$breakpoint-target}    { @include _fixed((bottom, left)); }
+      %bp-fixed-bottom-center#{$breakpoint-target}  { @include _fixed((bottom, center)); }
+
+      %bp-absolute#{$breakpoint-target}             { @include _absolute; }
+      %bp-absolute-top#{$breakpoint-target}         { @include _absolute(top); }
+      %bp-absolute-right#{$breakpoint-target}       { @include _absolute(right); }
+      %bp-absolute-bottom#{$breakpoint-target}      { @include _absolute(bottom); }
+      %bp-absolute-left#{$breakpoint-target}        { @include _absolute(left); }
+      %bp-absolute-middle#{$breakpoint-target}      { @include _absolute(middle); }
+      %bp-absolute-center#{$breakpoint-target}      { @include _absolute(center); }
+
+      %bp-absolute-top-right#{$breakpoint-target}      { @include _absolute((top, right)); }
+      %bp-absolute-top-left#{$breakpoint-target}       { @include _absolute((top, left)); }
+      %bp-absolute-top-center#{$breakpoint-target}     { @include _absolute((top, center)); }
+      %bp-absolute-middle-right#{$breakpoint-target}   { @include _absolute((middle, right)); }
+      %bp-absolute-middle-left#{$breakpoint-target}    { @include _absolute((middle, left)); }
+      %bp-absolute-middle-center#{$breakpoint-target}  { @include _absolute((middle, center)); }
+      %bp-absolute-bottom-right#{$breakpoint-target}   { @include _absolute((bottom, right)); }
+      %bp-absolute-bottom-left#{$breakpoint-target}    { @include _absolute((bottom, left)); }
+      %bp-absolute-bottom-center#{$breakpoint-target}  { @include _absolute((bottom, center)); }
+
+      %bp-relative#{$breakpoint-target}               { @include _relative; }
+
+      %bp-static#{$breakpoint-target}                 { @include _static; }
+
+      .relative#{$breakpoint-target} { @extend %bp-relative#{$breakpoint-target} }
+      .static#{$breakpoint-target} { @extend %bp-static#{$breakpoint-target} }
+      @each $type in "fixed" "absolute" {
+        // 1D directions
+        @each $direction in "" "top" "middle" "bottom" "right" "left" "center" {
+          @if $direction != "" and $direction != null {
+            $direction: "-" + $direction;
+          }@else{
+            $direction: "";
+          }
+          .#{$type + $direction + $breakpoint-target} { @extend %bp-#{$type + $direction + $breakpoint-target} }
+        }
+        // 2D directions
+        @each $vertical in "top" "middle" "bottom" {
+          @each $horizontal in "right" "left" "center" {
+            .#{$type + "-" + $vertical + "-" + $horizontal + $breakpoint-target} { @extend %bp-#{$type + "-" + $vertical + "-" + $horizontal + $breakpoint-target} }
+          }
+        }
+      } 
+    }
+
+
+    // multi column classes
+    @if $multi-column-classes {
+      @include _multi-column-classes(if($breakpoint-target != '', $breakpoint, false));
+    }
+
+
+    // typography classes
+    @if $typography-classes {
+      %bp-align-top#{$breakpoint-target}       { @include _align-top; }
+      %bp-align-right#{$breakpoint-target}     { @include _align-right; }
+      %bp-align-bottom#{$breakpoint-target}    { @include _align-bottom; }
+      %bp-align-left#{$breakpoint-target}      { @include _align-left; }
+      %bp-align-center#{$breakpoint-target}    { @include _align-center; }
+      %bp-unstyled#{$breakpoint-target}        { @include _zero; }
+      %bp-justify#{$breakpoint-target}         { @include _justify; }
+      %bp-truncate#{$breakpoint-target}        { @include _truncate; }
+      @each $helper in $typography-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+      }
+    }
+
+
+    // size classes
+    @if $size-classes {
+      %bp-small#{$breakpoint-target}    { @include _small }
+      %bp-medium#{$breakpoint-target}   { @include _medium }
+      %bp-large#{$breakpoint-target}    { @include _large }
+      @each $helper in $size-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+      }
+    }
+
+
+    // border classes
+    @if $border-classes {
+      %bp-no-border#{$breakpoint-target}       { border: 0; }
+      %bp-bordered#{$breakpoint-target}        { @include _bordered; }
+      %bp-border-top#{$breakpoint-target}      { @include _border-top; }
+      %bp-border-right#{$breakpoint-target}    { @include _border-right; }
+      %bp-border-bottom#{$breakpoint-target}   { @include _border-bottom; }
+      %bp-border-left#{$breakpoint-target}     { @include _border-left; }
+      @each $helper in $border-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+      }
+    }
+
+    
+    // radius classes
+    @if $radius-classes {
+      %bp-square#{$breakpoint-target}       { @include _square; }
+      %bp-rounded#{$breakpoint-target}      { @include _rounded; }
+      %bp-round#{$breakpoint-target}        { @include _round; }
+      @each $helper in $radius-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+      }
+    }
+
+
+    // rotation classes
+    @if $rotation-classes {
+      %bp-rotate-90#{$breakpoint-target}       { @include _rotate-90; }
+      %bp-rotate-90-ctr#{$breakpoint-target}   { @include _rotate-90-ctr; }
+      %bp-rotate-180#{$breakpoint-target}      { @include _rotate-180; }
+      %bp-rotate-180-ctr#{$breakpoint-target}  { @include _rotate-180-ctr; }
+      %bp-rotate-270#{$breakpoint-target}      { @include _rotate-270; }
+      %bp-rotate-270-ctr#{$breakpoint-target}  { @include _rotate-270-ctr; }
+      %bp-rotate-360#{$breakpoint-target}      { @include _rotate-360; }
+      %bp-rotate-360-ctr#{$breakpoint-target}  { @include _rotate-360-ctr; }
+      @each $helper in $rotation-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+      }
+    }
+
+    // spacer classes
+    @if $spacer-classes {
+      %bp-padded#{$breakpoint-target}               { @include _padded(1); }
+      %bp-half-padded#{$breakpoint-target}          { @include _padded(0.5); }
+      %bp-double-padded#{$breakpoint-target}        { @include _padded(2); }
+      %bp-triple-padded#{$breakpoint-target}        { @include _padded(3); }
+
+      %bp-pad-top#{$breakpoint-target}              { @include _pad-top; }
+      %bp-half-pad-top#{$breakpoint-target}         { @include _pad-top(0.5); }
+      %bp-double-pad-top#{$breakpoint-target}       { @include _pad-top(2); }
+      %bp-triple-pad-top#{$breakpoint-target}       { @include _pad-top(3); }
+
+      %bp-pad-right#{$breakpoint-target}            { @include _pad-right; }
+      %bp-half-pad-right#{$breakpoint-target}       { @include _pad-right(0.5); }
+      %bp-double-pad-right#{$breakpoint-target}     { @include _pad-right(2); }
+      %bp-triple-pad-right#{$breakpoint-target}     { @include _pad-right(3); }
+
+      %bp-pad-bottom#{$breakpoint-target}           { @include _pad-bottom; }
+      %bp-half-pad-bottom#{$breakpoint-target}      { @include _pad-bottom(0.5); }
+      %bp-double-pad-bottom#{$breakpoint-target}    { @include _pad-bottom(2); }
+      %bp-triple-pad-bottom#{$breakpoint-target}    { @include _pad-bottom(3); }
+
+      %bp-pad-left#{$breakpoint-target}             { @include _pad-left; }
+      %bp-half-pad-left#{$breakpoint-target}        { @include _pad-left(0.5); }
+      %bp-double-pad-left#{$breakpoint-target}      { @include _pad-left(2); }
+      %bp-triple-pad-left#{$breakpoint-target}      { @include _pad-left(3); }
+
+      %bp-gapped#{$breakpoint-target}               { @include _gapped; }
+      %bp-half-gapped#{$breakpoint-target}          { @include _gapped(0.5); }
+      %bp-double-gapped#{$breakpoint-target}        { @include _gapped(2); }
+      %bp-triple-gapped#{$breakpoint-target}        { @include _gapped(3); }
+
+      %bp-gap-top#{$breakpoint-target}              { @include _gap-top; }
+      %bp-half-gap-top#{$breakpoint-target}         { @include _gap-top(0.5); }
+      %bp-double-gap-top#{$breakpoint-target}       { @include _gap-top(2); }
+      %bp-triple-gap-top#{$breakpoint-target}       { @include _gap-top(3); }
+
+      %bp-gap-right#{$breakpoint-target}            { @include _gap-right; }
+      %bp-half-gap-right#{$breakpoint-target}       { @include _gap-right(0.5); }
+      %bp-double-gap-right#{$breakpoint-target}     { @include _gap-right(2); }
+      %bp-triple-gap-right#{$breakpoint-target}     { @include _gap-right(3); }
+
+      %bp-gap-bottom#{$breakpoint-target}           { @include _gap-bottom; }
+      %bp-half-gap-bottom#{$breakpoint-target}      { @include _gap-bottom(0.5); }
+      %bp-double-gap-bottom#{$breakpoint-target}    { @include _gap-bottom(2); }
+      %bp-triple-gap-bottom#{$breakpoint-target}    { @include _gap-bottom(3); }
+
+      %bp-gap-left#{$breakpoint-target}             { @include _gap-left; }
+      %bp-half-gap-left#{$breakpoint-target}        { @include _gap-left(0.5); }
+      %bp-double-gap-left#{$breakpoint-target}      { @include _gap-left(2); }
+      %bp-triple-gap-left#{$breakpoint-target}      { @include _gap-left(3); }
+
+      %bp-offset#{$breakpoint-target}               { @include _offset; }
+      %bp-half-offset#{$breakpoint-target}          { @include _offset(0.5); }
+      %bp-double-offset#{$breakpoint-target}        { @include _offset(2); }
+      %bp-triple-offset#{$breakpoint-target}        { @include _offset(3); }
+
+      %bp-offset-top#{$breakpoint-target}           { @include _offset-top; }
+      %bp-half-offset-top#{$breakpoint-target}      { @include _offset-top(0.5); }
+      %bp-double-offset-top#{$breakpoint-target}    { @include _offset-top(2); }
+      %bp-triple-offset-top#{$breakpoint-target}    { @include _offset-top(3); }
+
+      %bp-offset-right#{$breakpoint-target}         { @include _offset-right; }
+      %bp-half-offset-right#{$breakpoint-target}    { @include _offset-right(0.5); }
+      %bp-double-offset-right#{$breakpoint-target}  { @include _offset-right(2); }
+      %bp-triple-offset-right#{$breakpoint-target}  { @include _offset-right(3); }
+
+      %bp-offset-bottom#{$breakpoint-target}        { @include _offset-bottom; }
+      %bp-half-offset-bottom#{$breakpoint-target}   { @include _offset-bottom(0.5); }
+      %bp-double-offset-bottom#{$breakpoint-target} { @include _offset-bottom(2); }
+      %bp-triple-offset-bottom#{$breakpoint-target} { @include _offset-bottom(3); }
+
+      %bp-offset-left#{$breakpoint-target}          { @include _offset-left; }
+      %bp-half-offset-left#{$breakpoint-target}     { @include _offset-left(0.5); }
+      %bp-double-offset-left#{$breakpoint-target}   { @include _offset-left(2); }
+      %bp-triple-offset-left#{$breakpoint-target}   { @include _offset-left(3); }
+
+      @each $helper in $spacer-helpers {
+        .#{$helper + $breakpoint-target} { @extend %bp-#{$helper + $breakpoint-target}}
+        @if $spacer-mod-classes {
+          @each $mod in $spacer-modifiers {
+            .#{$mod + "-" + $helper + $breakpoint-target} { @extend %bp-#{$mod + "-" + $helper + $breakpoint-target}}
+          }
+        }
+      }
+    }
+
+    // conditional content classes
+    @if $conditional-content-classes {
+      @if $breakpoint-index > 1 {
+        // Clear last iteration
+        .#{nth($breakpoints, $breakpoint-index - 1) + "-only"} { display: none !important; }
+        .#{"hide-on-" + nth($breakpoints, $breakpoint-index - 1)} { display: block !important; }
+        @if $inline-conditional-helpers {
+          span.#{nth($breakpoints, $breakpoint-index - 1) + "-only"} { display: none !important; }
+          span.#{"hide-on-" + nth($breakpoints, $breakpoint-index - 1)} { display: inline !important; }        
+        }
+      }@else{
+        // Initialize *-onlys
+        @for $bp from 2 to length($breakpoints) + 1 {
+          .#{nth($breakpoints, $bp) + "-only"} { display: none !important; }
+          @if $inline-conditional-helpers {
+            span.#{nth($breakpoints, $bp) + "-only"} { display: none !important; }
+          }
+        }
+      }
+      // Apply this iteration
+      .#{$breakpoint + "-only"} { display: block !important; }
+      .#{"hide-on-" + $breakpoint} { display: none !important; }
+      @if $inline-conditional-helpers {
+        span.#{$breakpoint + "-only"} { display: inline !important; }
+        span.#{"hide-on-" + $breakpoint} { display: none !important; }      
+      }
+    }
+
+  }
+
+  // transition classes
+  @if $transition-classes {
+    .transition {
+      transition: all $default-transition-speed;
+    }
+    .no-transition {
+      transition: none !important;
+    }
+  }
+
+}

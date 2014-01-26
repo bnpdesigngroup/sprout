@@ -1,0 +1,871 @@
+(function() {
+  var $, TruncateLines, delayedAdjustTruncation, truncateIndex, truncateInitialized, truncatedLineElements;
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    return $body.on('click', '.checklist:not([readonly]) li:not([readonly])', function() {
+      var $item;
+      $item = $(this);
+      if ($item.attr('aria-checked') === "true" || $item.attr('data-checked') === "true" || $item.attr('checked') === "checked" || $item.hasClass('checked') || $item.hasClass('completed')) {
+        $item.attr('aria-checked', "false");
+      } else {
+        $item.attr('aria-checked', "true");
+      }
+      return $item.removeClass('checked completed').removeAttr('data-checked checked');
+    });
+  });
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    return $body.on('click', '.dismissible', function() {
+      var $box;
+      $box = $(this);
+      $box.addClass('dismiss animated');
+      return setTimeout(function() {
+        return $box.hide(250, function() {
+          return $box.remove();
+        });
+      }, 1000);
+    });
+  });
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    return GroundworkCSS.equalizeColumns = function() {
+      return $('.row.equalize').each(function() {
+        var $row, collapsed, tallest;
+        $row = $(this);
+        tallest = 0;
+        collapsed = false;
+        $row.children().each(function(i) {
+          var $col;
+          $col = $(this);
+          $col.css('minHeight', '1px');
+          collapsed = $col.outerWidth() === $row.outerWidth();
+          if (!collapsed) {
+            if (!$col.hasClass('equal')) {
+              $col.addClass('equal');
+            }
+            if ($col.outerHeight() > tallest) {
+              return tallest = $col.outerHeight();
+            }
+          }
+        });
+        if (!collapsed) {
+          return $row.children().css('min-height', tallest);
+        }
+      });
+    };
+  });
+
+  $(window).on('load resize', function() {
+    return GroundworkCSS.equalizeColumns();
+  });
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  GroundworkCSS.formSelectors = ['.error input', '.error textarea', '.invalid input', '.invalid textarea', 'input.error', 'textarea.error', 'input.invalid', 'textarea.invalid', 'input[aria-invalid="true"]', 'textarea[aria-invalid="true"]'].join(',');
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    return $body.on('click', GroundworkCSS.formSelectors, function() {
+      $(this).focus();
+      return $(this).select();
+    });
+  });
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    $('.dropdown').each(function() {
+      if ($(this).attr('aria-pressed') !== 'true') {
+        $(this).attr('aria-pressed', 'false');
+        return $(this).children('ul').attr({
+          'aria-expanded': 'false',
+          'aria-hidden': 'true',
+          'role': 'menu'
+        });
+      }
+    });
+    $body.on('dropdown', function(e) {
+      var $target, dropdownState;
+      $target = $(e.target);
+      $('.dropdown').not($target).attr('aria-pressed', 'false');
+      $('.dropdown').children('ul').attr({
+        'aria-expanded': 'false',
+        'aria-hidden': 'true'
+      });
+      if ($target.attr('aria-pressed') === 'true') {
+        dropdownState = 'false';
+      } else {
+        dropdownState = 'true';
+      }
+      $target.attr('aria-pressed', dropdownState);
+      return $target.children('ul').attr({
+        'aria-expanded': !dropdownState,
+        'aria-hidden': dropdownState
+      });
+    });
+    $body.on('click', '.dropdown', function(e) {
+      var $target;
+      $target = $(e.currentTarget);
+      if (!($target.is('a') || $target.is('button'))) {
+        e.stopPropagation();
+      }
+      if (!$target.hasClass('focused')) {
+        return $target.trigger('dropdown');
+      } else {
+        return $target.removeClass('focused');
+      }
+    });
+    $body.on('click', function() {
+      var $dropdown;
+      $dropdown = $('.dropdown[aria-pressed="true"]');
+      if ($dropdown.length) {
+        return $dropdown.attr('aria-pressed', 'false');
+      }
+    });
+    return $body.on('focusout', '.dropdown li:last-child a,\
+                        .dropdown li:last-child button', function(e) {
+      return $('.dropdown[aria-pressed="true"]').attr('aria-pressed', 'false');
+    });
+  });
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  GroundworkCSS.responsiveNavigationIndex = 0;
+
+  GroundworkCSS.responsiveNavigationElements = [];
+
+  GroundworkCSS.ResponsiveNavigation = (function() {
+    function ResponsiveNavigation(el) {
+      this.index = GroundworkCSS.responsiveNavigationIndex++;
+      this.el = $(el);
+      this.init();
+    }
+
+    ResponsiveNavigation.prototype.init = function() {
+      this.defaultLabel();
+      this.setupMarkers();
+      if (!this.el.hasClass('nocollapse')) {
+        return this.hamburgerHelper();
+      }
+    };
+
+    ResponsiveNavigation.prototype.defaultLabel = function() {
+      if (!this.el.hasClass('nocollapse')) {
+        if (this.el.attr('title') === void 0) {
+          return this.el.attr('title', 'Menu');
+        }
+      }
+    };
+
+    ResponsiveNavigation.prototype.setupMarkers = function() {
+      this.el.find('ul').each(function() {
+        if ($(this).find('li').length) {
+          return $(this).attr('role', 'menu');
+        }
+      });
+      if (!$(this.el).hasClass('vertical')) {
+        this.el.find('> ul').attr('role', 'menubar');
+      }
+      return this.el.find('li').each(function() {
+        if ($(this).find('ul').length) {
+          return $(this).attr('role', 'menu');
+        }
+      });
+    };
+
+    ResponsiveNavigation.prototype.hamburgerHelper = function() {
+      return this.el.prepend('<button class="hamburger"></button>');
+    };
+
+    return ResponsiveNavigation;
+
+  })();
+
+  $ = jQuery;
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    GroundworkCSS.mouseBindings = function() {
+      $body.on('mouseenter', '.nav:not(.vertical) li[role="menu"]', function(e) {
+        var $expandedSiblings, $menu, $targetMenu;
+        $menu = $(this);
+        $('.nav:not(.vertical)').not($menu).each(function() {
+          var $otherNav;
+          $otherNav = $(this);
+          if (!$otherNav.find('button.hamburger').is(':visible')) {
+            return $otherNav.find('ul[aria-expanded="true"]').attr('aria-expanded', 'false');
+          }
+        });
+        if (!$menu.parents('.nav').find('button.hamburger').is(':visible')) {
+          clearTimeout(GroundworkCSS.delayMenuClose);
+          $expandedSiblings = $menu.siblings().find('ul[aria-expanded="true"]');
+          $expandedSiblings.attr('aria-expanded', 'false');
+          $targetMenu = $(e.target).parents('li[role="menu"]').children('ul');
+          return $targetMenu.attr('aria-expanded', 'true');
+        }
+      });
+      return $body.on('mouseleave', '.nav:not(.vertical) li[role="menu"]', function(e) {
+        var $menu,
+          _this = this;
+        $menu = $(this);
+        if (!$menu.parents('.nav').find('button.hamburger').is(':visible')) {
+          return GroundworkCSS.delayMenuClose = setTimeout(function() {
+            return $menu.find('ul[aria-expanded="true"]').attr('aria-expanded', 'false');
+          }, 500);
+        }
+      });
+    };
+    GroundworkCSS.touchBindings = function() {
+      $body.on('click', '.nav li[role="menu"] > a, .nav li[role="menu"] > button', function(e) {
+        var $list, $menu;
+        $list = $(this).siblings('ul');
+        $menu = $(this).parent('[role="menu"]');
+        if ($list.attr('aria-expanded') !== 'true') {
+          $list.attr('aria-expanded', 'true');
+        } else {
+          $list.attr('aria-expanded', 'false');
+          $list.find('[aria-expanded="true"]').attr('aria-expanded', 'false');
+        }
+        if ($menu.attr('aria-pressed') !== 'true') {
+          $menu.attr('aria-pressed', 'true');
+        } else {
+          $menu.attr('aria-pressed', 'false');
+          $menu.find('[aria-pressed="true"]').attr('aria-pressed', 'false');
+          $menu.find('[aria-expanded="true"]').attr('aria-expanded', 'false');
+        }
+        return e.preventDefault();
+      });
+      return $body.on('click', '.nav button.hamburger', function(e) {
+        var $list;
+        $list = $(this).siblings('ul');
+        if ($list.attr('aria-expanded') !== 'true') {
+          $list.attr('aria-expanded', 'true');
+        } else {
+          $list.attr('aria-expanded', 'false');
+          $list.find('[aria-pressed="true"]').attr('aria-pressed', 'false');
+          $list.find('[aria-expanded="true"]').attr('aria-expanded', 'false');
+        }
+        return e.preventDefault();
+      });
+    };
+    $('.nav').each(function() {
+      return GroundworkCSS.responsiveNavigationElements.push(new GroundworkCSS.ResponsiveNavigation(this));
+    });
+    GroundworkCSS.touchBindings();
+    if (!Modernizr.touch) {
+      return GroundworkCSS.mouseBindings();
+    }
+  });
+
+  $ = jQuery;
+
+  window.GroundworkCSS || (window.GroundworkCSS = {});
+
+  $(function() {
+    var $body;
+    $body = $('body');
+    $('.tabs').each(function() {
+      var $activeTab, $tabs;
+      $tabs = $(this);
+      $activeTab = $tabs.children('ul').children('li.active');
+      if ($activeTab.length) {
+        $tabs = $activeTab.parents('.tabs');
+        return $tabs.find($activeTab.attr('aria-controls')).addClass('active');
+      } else {
+        $tabs.children('ul').children('li').first().addClass('active');
+        return $tabs.children('div').first().addClass('active');
+      }
+    });
+    $body.on('click', '.tabs > ul li', function(e) {
+      var $tab, $tabs;
+      $tab = $(this);
+      $tabs = $tab.parents('.tabs');
+      $tab.addClass('active');
+      $tab.siblings('li').removeClass('active');
+      $tabs.find('> div, > ul > div').hide();
+      $tabs.find($tab.attr('aria-controls')).show();
+      return e.preventDefault();
+    });
+    GroundworkCSS.transformTabs = function() {
+      var accordion, ipad, mobile, notaccordion, notipad, notmobile, notsmalltablet, smalltablet, viewportWidth;
+      viewportWidth = $(window).width();
+      accordion = '.tabs.accordion';
+      mobile = '.tabs.accordion.mobile';
+      smalltablet = '.tabs.accordion.small-tablet';
+      ipad = '.tabs.accordion.ipad';
+      notaccordion = '.tabs:not(.accordion)';
+      notmobile = ':not(.mobile)';
+      notsmalltablet = ':not(.small-tablet)';
+      notipad = ':not(.ipad)';
+      if (viewportWidth <= 480) {
+        GroundworkCSS.restoreTabStructure(mobile);
+        return GroundworkCSS.convertToAccordion(notaccordion + notmobile);
+      } else if (viewportWidth < 768) {
+        GroundworkCSS.restoreTabStructure(mobile + ', ' + smalltablet);
+        return GroundworkCSS.convertToAccordion(notaccordion + notmobile + notsmalltablet);
+      } else if (viewportWidth <= 1024) {
+        GroundworkCSS.restoreTabStructure(mobile + ', ' + smalltablet + ', ' + ipad);
+        return GroundworkCSS.convertToAccordion(notaccordion + notmobile + notsmalltablet + notipad);
+      } else if (viewportWidth > 1024) {
+        return GroundworkCSS.restoreTabStructure(accordion);
+      }
+    };
+    GroundworkCSS.convertToAccordion = function(tabTypes) {
+      tabTypes = $(tabTypes);
+      return tabTypes.each(function() {
+        var $tabs;
+        $tabs = $(this);
+        $tabs.addClass('accordion');
+        return $tabs.find('> div').each(function() {
+          var $tab, $tabpanel, tablink;
+          $tab = $(this);
+          $tabpanel = $tab.clone();
+          tablink = 'li[aria-controls="#' + $tabpanel.attr('id') + '"]';
+          $tabs.find(tablink).after($tabpanel);
+          return $tab.remove();
+        });
+      });
+    };
+    GroundworkCSS.restoreTabStructure = function(tabTypes) {
+      return $(tabTypes).each(function() {
+        var $tabs;
+        $tabs = $(this);
+        $tabs.removeClass('accordion');
+        if ($tabs.hasClass('vertical')) {
+          GroundworkCSS.adjustVerticalTabs($tabs);
+        }
+        return $tabs.children('ul').children('div').each(function() {
+          var $tab, $tabpanel;
+          $tab = $(this);
+          $tabpanel = $tab.clone();
+          $tabs.append($tabpanel);
+          return $tab.remove();
+        });
+      });
+    };
+    return GroundworkCSS.adjustVerticalTabs = function(tabs) {
+      tabs = $(tabs);
+      if (!tabs.length) {
+        tabs = $('.tabs.vertical');
+      }
+      return tabs.each(function() {
+        if ($(this).hasClass('vertical')) {
+          $(this).children('ul').css({
+            'min-height': '0px'
+          });
+          if (!$(this).hasClass('accordion')) {
+            $(this).children('[role="tabpanel"]').css({
+              'padding-left': $(this).children('ul').width() + 10 + 'px'
+            });
+            return $(this).children('ul').css({
+              'min-height': $(this).height() + 'px'
+            });
+          }
+        }
+      });
+    };
+  });
+
+  $(window).on('load resize', function() {
+    clearTimeout(GroundworkCSS.delayedAdjustTabs);
+    return GroundworkCSS.delayedAdjustTabs = setTimeout(function() {
+      GroundworkCSS.transformTabs();
+      return GroundworkCSS.adjustVerticalTabs();
+    }, 50);
+  });
+
+  /*
+   *
+   *  jQuery PlaceholderText by Gary Hepting
+   *
+   *  Open source under the MIT License.
+   *
+   *  Copyright © 2013 Gary Hepting. All rights reserved.
+   *
+  */
+
+
+  $ = jQuery;
+
+  $.fn.placeholderText = function(options) {
+    var createPlaceholderContent, opts, placeholder;
+    $.fn.placeholderText.defaults = {
+      type: "paragraphs",
+      amount: "1",
+      html: true,
+      punctuation: true
+    };
+    opts = $.extend({}, $.fn.placeholderText.defaults, options);
+    placeholder = new Array(10);
+    placeholder[0] = "Nam quis nulla. Integer malesuada. In in enim a arcu imperdiet malesuada. Sed vel lectus. Donec odio urna, tempus molestie, porttitor ut, iaculis quis, sem. Phasellus rhoncus. Aenean id metus id velit ullamcorper pulvinar. Vestibulum fermentum tortor id mi. Pellentesque ipsum. Nulla non arcu lacinia neque faucibus fringilla. Nulla non lectus sed nisl molestie malesuada. Proin in tellus sit amet nibh dignissim sagittis. Vivamus luctus egestas leo. Maecenas sollicitudin. Nullam rhoncus aliquam metus. Etiam egestas wisi a erat.";
+    placeholder[1] = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Aliquam erat volutpat. Nunc auctor. Mauris pretium quam et urna. Fusce nibh. Duis risus. Curabitur sagittis hendrerit ante. Aliquam erat volutpat. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Duis condimentum augue id magna semper rutrum. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Fusce consectetuer risus a nunc. Aliquam ornare wisi eu metus. Integer pellentesque quam vel velit. Duis pulvinar.";
+    placeholder[2] = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi gravida libero nec velit. Morbi scelerisque luctus velit. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Proin mattis lacinia justo. Vestibulum facilisis auctor urna. Aliquam in lorem sit amet leo accumsan lacinia. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim. Phasellus et lorem id felis nonummy placerat. Fusce dui leo, imperdiet in, aliquam sit amet, feugiat eu, orci. Aenean vel massa quis mauris vehicula lacinia. Quisque tincidunt scelerisque libero. Maecenas libero. Etiam dictum tincidunt diam. Donec ipsum massa, ullamcorper in, auctor et, scelerisque sed, est. Suspendisse nisl. Sed convallis magna eu sem. Cras pede libero, dapibus nec, pretium sit amet, tempor quis, urna.";
+    placeholder[3] = "Etiam posuere quam ac quam. Maecenas aliquet accumsan leo. Nullam dapibus fermentum ipsum. Etiam quis quam. Integer lacinia. Nulla est. Nulla turpis magna, cursus sit amet, suscipit a, interdum id, felis. Integer vulputate sem a nibh rutrum consequat. Maecenas lorem. Pellentesque pretium lectus id turpis. Etiam sapien elit, consequat eget, tristique non, venenatis quis, ante. Fusce wisi. Phasellus faucibus molestie nisl. Fusce eget urna. Curabitur vitae diam non enim vestibulum interdum. Nulla quis diam. Ut tempus purus at lorem.";
+    placeholder[4] = "In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Duis sapien nunc, commodo et, interdum suscipit, sollicitudin et, dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam id dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Mauris dictum facilisis augue. Fusce tellus. Pellentesque arcu. Maecenas fermentum, sem in pharetra pellentesque, velit turpis volutpat ante, in pharetra metus odio a lectus. Sed elit dui, pellentesque a, faucibus vel, interdum nec, diam. Mauris dolor felis, sagittis at, luctus sed, aliquam non, tellus. Etiam ligula pede, sagittis quis, interdum ultricies, scelerisque eu, urna. Nullam at arcu a est sollicitudin euismod. Praesent dapibus. Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. Nam sed tellus id magna elementum tincidunt.";
+    placeholder[5] = "Morbi a metus. Phasellus enim erat, vestibulum vel, aliquam a, posuere eu, velit. Nullam sapien sem, ornare ac, nonummy non, lobortis a, enim. Nunc tincidunt ante vitae massa. Duis ante orci, molestie vitae, vehicula venenatis, tincidunt ac, pede. Nulla accumsan, elit sit amet varius semper, nulla mauris mollis quam, tempor suscipit diam nulla vel leo. Etiam commodo dui eget wisi. Donec iaculis gravida nulla. Donec quis nibh at felis congue commodo. Etiam bibendum elit eget erat.";
+    placeholder[6] = "Praesent in mauris eu tortor porttitor accumsan. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Aenean fermentum risus id tortor. Integer imperdiet lectus quis justo. Integer tempor. Vivamus ac urna vel leo pretium faucibus. Mauris elementum mauris vitae tortor. In dapibus augue non sapien. Aliquam ante. Curabitur bibendum justo non orci.";
+    placeholder[7] = "Morbi leo mi, nonummy eget, tristique non, rhoncus non, leo. Nullam faucibus mi quis velit. Integer in sapien. Fusce tellus odio, dapibus id, fermentum quis, suscipit id, erat. Fusce aliquam vestibulum ipsum. Aliquam erat volutpat. Pellentesque sapien. Cras elementum. Nulla pulvinar eleifend sem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque porta. Vivamus porttitor turpis ac leo.";
+    placeholder[8] = "Maecenas ipsum velit, consectetuer eu, lobortis ut, dictum at, dui. In rutrum. Sed ac dolor sit amet purus malesuada congue. In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Suspendisse sagittis ultrices augue. Mauris metus. Nunc dapibus tortor vel mi dapibus sollicitudin. Etiam posuere lacus quis dolor. Praesent id justo in neque elementum ultrices. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. In convallis. Fusce suscipit libero eget elit. Praesent vitae arcu tempor neque lacinia pretium. Morbi imperdiet, mauris ac auctor dictum, nisl ligula egestas nulla, et sollicitudin sem purus in lacus.";
+    placeholder[9] = "Aenean placerat. In vulputate urna eu arcu. Aliquam erat volutpat. Suspendisse potenti. Morbi mattis felis at nunc. Duis viverra diam non justo. In nisl. Nullam sit amet magna in magna gravida vehicula. Mauris tincidunt sem sed arcu. Nunc posuere. Nullam lectus justo, vulputate eget, mollis sed, tempor sed, magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam neque. Curabitur ligula sapien, pulvinar a, vestibulum quis, facilisis vel, sapien. Nullam eget nisl. Donec vitae arcu.";
+    createPlaceholderContent = function(el) {
+      var count, i, iParagraphCount, iWordCount, list, numOfChars, numOfWords, outputString, placeholderText, random, tempString, wordList;
+      options = {};
+      if ($(el).data('placeholderType') !== 'undefined') {
+        options.type = $(el).data('placeholderType');
+      }
+      if ($(el).data('placeholderAmount') !== 'undefined') {
+        options.amount = $(el).data('placeholderAmount');
+      }
+      if ($(el).data('placeholderHtml') !== 'undefined') {
+        options.html = $(el).data('placeholderHtml');
+      }
+      if ($(el).data('placeholderPunctuation') !== 'undefined') {
+        options.punctuation = $(el).data('placeholderPunctuation');
+      }
+      opts = $.extend({}, $.fn.placeholderText.defaults, options);
+      count = opts.amount;
+      placeholderText = "";
+      i = 0;
+      while (i < count) {
+        random = Math.floor(Math.random() * 10);
+        if (opts.html) {
+          placeholderText += "<p>";
+        }
+        placeholderText += placeholder[random];
+        if (opts.html) {
+          placeholderText += "</p>";
+        }
+        placeholderText += "\n\n";
+        i++;
+      }
+      switch (opts.type) {
+        case "words":
+          numOfWords = opts.amount;
+          numOfWords = parseInt(numOfWords);
+          list = new Array();
+          wordList = new Array();
+          wordList = placeholderText.split(" ");
+          iParagraphCount = 0;
+          iWordCount = 0;
+          while (list.length < numOfWords) {
+            if (iWordCount > wordList.length) {
+              iWordCount = 0;
+              iParagraphCount++;
+              if (iParagraphCount + 1 > placeholder.length) {
+                iParagraphCount = 0;
+              }
+              wordList = placeholder[iParagraphCount].split(" ");
+              wordList[0] = "\n\n" + wordList[0];
+            }
+            list.push(wordList[iWordCount]);
+            iWordCount++;
+          }
+          placeholderText = list.join(" ");
+          break;
+        case "characters":
+          outputString = "";
+          numOfChars = opts.amount;
+          numOfChars = parseInt(numOfChars);
+          tempString = placeholder.join("\n\n");
+          while (outputString.length < numOfChars) {
+            outputString += tempString;
+          }
+          placeholderText = outputString.substring(0, numOfChars);
+          break;
+        case "paragraphs":
+          break;
+      }
+      if (!opts.punctuation) {
+        placeholderText = placeholderText.replace(",", "").replace(".", "");
+      }
+      return placeholderText;
+    };
+    return this.each(function() {
+      var $this, placeholderContent;
+      $this = $(this);
+      placeholderContent = createPlaceholderContent(this);
+      return $this.html(placeholderContent);
+    });
+  };
+
+  $(function() {
+    return $('.placeholderText').placeholderText();
+  });
+
+  /*
+   *
+   *  jQuery ResponsiveTables by Gary Hepting
+   *  https://github.com/ghepting/jquery-responsive-tables
+   *
+   *  Open source under the MIT License.
+   *
+   *  Copyright © 2013 Gary Hepting. All rights reserved.
+   *
+  */
+
+
+  $ = jQuery;
+
+  GroundworkCSS.responsiveTableIndex = 0;
+
+  GroundworkCSS.delayedAdjustTables = [];
+
+  GroundworkCSS.responsiveTableElements = [];
+
+  GroundworkCSS.ResponsiveTable = (function() {
+    function ResponsiveTable(el) {
+      this.index = GroundworkCSS.responsiveTableIndex++;
+      this.el = el;
+      this.compression = $(this.el).data('compression') || 5;
+      this.minFontSize = $(this.el).data('min') || 10;
+      this.maxFontSize = $(this.el).data('max') || Number.POSITIVE_INFINITY;
+      this.width = $(this.el).data('width') || "100%";
+      this.height = $(this.el).data('height') || "auto";
+      this.adjustParents = $(this.el).data('adjust-parents') || true;
+      this.styled = $(this.el).data('styled') || true;
+      this.columns = $('tbody tr', $(this.el)).first().find('th, td').length;
+      this.rows = $('tbody tr', $(this.el)).length;
+      this.init();
+    }
+
+    ResponsiveTable.prototype.init = function() {
+      this.setupTable();
+      this.adjustOnLoad();
+      return this.adjustOnResize();
+    };
+
+    ResponsiveTable.prototype.fontSize = function() {
+      var compressed;
+      if (this.height === "auto") {
+        compressed = $('tbody td', $(this.el)).first().width() / this.compression;
+      } else {
+        compressed = $(this.el).height() / this.rows / this.compression;
+      }
+      return Math.min(this.maxFontSize, Math.max(compressed, this.minFontSize));
+    };
+
+    ResponsiveTable.prototype.setupTable = function() {
+      $(this.el).css('width', this.width);
+      if (this.height !== "auto") {
+        $(this.el).css('height', this.height);
+      }
+      $("th, td", $(this.el)).css('width', (100 / this.columns) + "%");
+      if (this.styled) {
+        $(this.el).addClass("responsiveTable");
+      }
+      if (this.height !== "auto") {
+        $("th, td", $(this.el)).css('height', (100 / this.rows) + "%");
+        if (this.adjustParents) {
+          $(this.el).parents().each(function() {
+            return $(this).css('height', '100%');
+          });
+        }
+      }
+      return $(this.el).css('font-size', this.fontSize());
+    };
+
+    ResponsiveTable.prototype.resizeTable = function() {
+      return $(this.el).css('font-size', this.minFontSize).css('font-size', this.fontSize());
+    };
+
+    ResponsiveTable.prototype.adjustOnLoad = function() {
+      var _this = this;
+      return $(window).on('load', function() {
+        return _this.resizeTable();
+      });
+    };
+
+    ResponsiveTable.prototype.adjustOnResize = function() {
+      var _this = this;
+      return $(window).on('resize', function() {
+        clearTimeout(GroundworkCSS.delayedAdjustTables[_this.index]);
+        return GroundworkCSS.delayedAdjustTables[_this.index] = setTimeout(function() {
+          return _this.resizeTable();
+        }, 20);
+      });
+    };
+
+    return ResponsiveTable;
+
+  })();
+
+  $.fn.responsiveTables = function(options) {
+    return this.each(function() {
+      return GroundworkCSS.responsiveTableElements.push(new GroundworkCSS.ResponsiveTable(this));
+    });
+  };
+
+  $(document).ready(function() {
+    return $("table.responsive").responsiveTables();
+  });
+
+  /*
+   *
+   *  jQuery ResponsiveText by Gary Hepting
+   *  https://github.com/ghepting/jquery-responsive-text
+   *
+   *  Open source under the MIT License.
+   *
+   *  Copyright © 2013 Gary Hepting. All rights reserved.
+   *
+  */
+
+
+  $ = jQuery;
+
+  GroundworkCSS.delayedAdjustText = [];
+
+  GroundworkCSS.responsiveTextIndex = 0;
+
+  GroundworkCSS.responsiveTextElements = [];
+
+  GroundworkCSS.ResponsiveText = (function() {
+    function ResponsiveText(el) {
+      this.index = GroundworkCSS.responsiveTextIndex++;
+      this.el = el;
+      this.compression = $(this.el).data('compression') || 10;
+      this.minFontSize = $(this.el).data('min') || Number.NEGATIVE_INFINITY;
+      this.maxFontSize = $(this.el).data('max') || Number.POSITIVE_INFINITY;
+      this.scrollable = $(this.el).data('scrollable') || false;
+      this.scrollSpeed = $(this.el).data('scrollspeed') || 650;
+      this.scrollReset = $(this.el).data('scrollreset') || 200;
+      this.init();
+    }
+
+    ResponsiveText.prototype.init = function() {
+      $(this.el).wrapInner('<span class="responsiveText-wrapper" />');
+      this.adjustOnLoad();
+      this.adjustOnResize();
+      if (this.scrollable) {
+        return this.scrollOnHover();
+      }
+    };
+
+    ResponsiveText.prototype.resizeText = function() {
+      var calculatedFontSize, fontSize;
+      calculatedFontSize = $(this.el).width() / this.compression;
+      fontSize = Math.max(Math.min(calculatedFontSize, this.maxFontSize), this.minFontSize);
+      return $(this.el).css({
+        "font-size": Math.floor(fontSize)
+      });
+    };
+
+    ResponsiveText.prototype.adjustOnLoad = function() {
+      var _this = this;
+      return $(window).on('load', function() {
+        return _this.resizeText();
+      });
+    };
+
+    ResponsiveText.prototype.adjustOnResize = function() {
+      var _this = this;
+      return $(window).on('resize', function() {
+        clearTimeout(GroundworkCSS.delayedAdjustText[_this.index]);
+        return GroundworkCSS.delayedAdjustText[_this.index] = setTimeout(function() {
+          return _this.resizeText();
+        }, 20);
+      });
+    };
+
+    ResponsiveText.prototype.scrollOnHover = function() {
+      var _this = this;
+      $(this.el).css({
+        'overflow': 'hidden',
+        'text-overflow': 'ellipsis',
+        'white-space': 'nowrap'
+      });
+      return $(this.el).hover(function() {
+        _this.difference = _this.el.scrollWidth - $(_this.el).width();
+        if (_this.difference > _this.scrollSpeed) {
+          _this.scrollSpeed = _this.difference;
+        }
+        if (_this.difference > 0) {
+          $(_this.el).css('cursor', 'e-resize');
+          return $(_this.el).stop().animate({
+            "text-indent": -_this.difference
+          }, _this.scrollSpeed, function() {
+            return $(_this.el).css('cursor', 'text');
+          });
+        }
+      }, function() {
+        return $(_this.el).stop().animate({
+          "text-indent": 0
+        }, _this.scrollReset);
+      });
+    };
+
+    return ResponsiveText;
+
+  })();
+
+  $.fn.responsiveText = function(options) {
+    return this.each(function() {
+      return GroundworkCSS.responsiveTextElements.push(new GroundworkCSS.ResponsiveText(this));
+    });
+  };
+
+  $(document).ready(function() {
+    return $(".responsive").not('table').responsiveText();
+  });
+
+  /*
+   *
+   *  jQuery TruncateLines by Gary Hepting
+   *  https://github.com/ghepting/jquery-truncate-lines
+   *
+   *  Open source under the MIT License.
+   *
+   *  Copyright © 2013 Gary Hepting. All rights reserved.
+   *
+  */
+
+
+  $ = jQuery;
+
+  delayedAdjustTruncation = [];
+
+  truncateIndex = 0;
+
+  TruncateLines = (function() {
+    function TruncateLines(el) {
+      this.el = el;
+      this.index = truncateIndex++;
+      this.text = $(this.el).text();
+      $(this.el).attr('data-text', this.text);
+      this.words = this.text.trim().split(" ");
+      this.lines = parseInt($(this.el).attr('data-truncate'));
+      this.truncate();
+      this.adjustOnResize();
+    }
+
+    TruncateLines.prototype.truncate = function() {
+      this.measure();
+      return this.setContent();
+    };
+
+    TruncateLines.prototype.reset = function() {
+      return $(this.el).text(this.text).css('max-height', 'none').attr('data-truncated', 'false');
+    };
+
+    TruncateLines.prototype.measure = function() {
+      var i;
+      this.reset();
+      $(this.el).html(".");
+      this.singleLineHeight = $(this.el).outerHeight();
+      i = 1;
+      while (i++ < this.lines) {
+        $(this.el).append("<br>.");
+      }
+      return this.maxLinesHeight = $(this.el).outerHeight();
+    };
+
+    TruncateLines.prototype.empty = function() {
+      return $(this.el).html("");
+    };
+
+    TruncateLines.prototype.setContent = function() {
+      var truncated;
+      this.reset();
+      truncated = false;
+      this.addWords(this.words.length);
+      if (this.tooBig()) {
+        this.addNumberWordsThatFit();
+        $(this.el).css('max-height', this.maxLinesHeight + 'px');
+        return $(this.el).attr('data-truncated', true);
+      }
+    };
+
+    TruncateLines.prototype.addNumberWordsThatFit = function() {
+      var can, cant, mid;
+      cant = this.words.length;
+      can = 0;
+      mid = Math.floor(this.words.length / 2);
+      while (can + 1 !== cant) {
+        this.addWords(can + mid);
+        if (this.tooBig()) {
+          cant = can + mid;
+        } else {
+          can = can + mid;
+        }
+        mid = Math.floor(mid / 2) || 1;
+      }
+      this.addWords(can);
+      return $(this.el).html(this.trimTrailingPunctuation($(this.el).html()));
+    };
+
+    TruncateLines.prototype.addWords = function(num) {
+      return $(this.el).html(this.words.slice(0, num).join(" "));
+    };
+
+    TruncateLines.prototype.tooBig = function() {
+      return $(this.el).outerHeight() > this.maxLinesHeight;
+    };
+
+    TruncateLines.prototype.adjustOnResize = function() {
+      var _this = this;
+      return $(window).on('resize', function() {
+        clearTimeout(delayedAdjustTruncation[_this.index]);
+        return delayedAdjustTruncation[_this.index] = setTimeout(function() {
+          return _this.truncate();
+        }, 20);
+      });
+    };
+
+    TruncateLines.prototype.trimTrailingPunctuation = function(str) {
+      return str.replace(/(,$)|(\.$)|(\:$)|(\;$)|(\?$)|(\!$)/g, "");
+    };
+
+    return TruncateLines;
+
+  })();
+
+  truncateInitialized = false;
+
+  truncatedLineElements = [];
+
+  $.fn.truncateLines = function() {
+    if (!truncateInitialized) {
+      $('head').append('\
+<style type="text/css">\
+[data-truncated="true"] { overflow: hidden; }\
+[data-truncated="true"]:after { content: "..."; position: absolute; }\
+</style>');
+    }
+    return this.each(function() {
+      return truncatedLineElements.push(new TruncateLines(this));
+    });
+  };
+
+  $(window).load(function() {
+    return $("[data-truncate]").truncateLines();
+  });
+
+}).call(this);

@@ -1,0 +1,35 @@
+{
+  "name": "sprout",
+  "version": "1.0.0",
+  "author": "Justin Proffitt <justin@bnpdesigngroup.com>",
+  "homepage": "http://sprout.io",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sprout/sprout.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sprout/sprout/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-jade": "~0.5.0",
+    "grunt-contrib-compass": "~0.5.0",
+    "grunt-autoprefixer": "~0.3.0",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-browser-sync": "~0.2.3",
+    "grunt-bless": "~0.1.1",
+    "grunt-contrib-clean": "~0.5.0"
+  }
+}
