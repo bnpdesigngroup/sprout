@@ -18,11 +18,11 @@
   ?>
 
   <div role="document">
-    <div class="container">
+    <div id="inner_content" class="container">
       <div class="row guttered">
-        <div class="main <?php echo $sprout->layout->get_main_class(); ?>" role="main">
+        <main class="main <?php echo $sprout->layout->get_main_class(); ?>" role="main">
           <?php include $sprout->templates->get_main_template(); ?>
-        </div><!-- /.main -->
+        </main><!-- /.main -->
 
         <?php if ($sprout->layout->has_sidebar()) : ?>
           <aside class="sidebar <?php echo $sprout->layout->get_sidebar_class() ?>" role="complementary">

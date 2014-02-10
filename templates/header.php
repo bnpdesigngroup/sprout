@@ -1,6 +1,6 @@
 <?php global $sprout ?>
 <header role="banner">
-	<div class="container">
+	<div id="inner_header" class="container">
 		<a class="brand" href="<?php echo home_url() ?>" title="<?php bloginfo('name') ?>">
 		<?php 
 			$logo = ot_get_option('logo', null); 
@@ -15,22 +15,30 @@
 			endif; ?>
 		</a>
 		
-		<?php $tagline = $sprout->options->get_option('header_tagline', null); if ($tagline): ?>
-			<div class="tagline" role="complementary">
-				<?php echo do_shortcode($tagline); ?>
+		<?php $tagline = $sprout->options->get_option('header_tagline', null); $contact = $sprout->options->get_option('header_contact', null); if ($tagline || $contact): ?>
+		
+			<div role="complementary">
+
+				<?php if ($tagline): ?>
+					<div class="tagline">
+						<?php echo do_shortcode($tagline); ?>
+					</div>
+				<?php endif; ?>
+
+				<?php  if ($contact): ?>
+					<div class="contact">
+						<?php echo do_shortcode($contact); ?>
+					</div>
+				<?php endif; ?>
+
 			</div>
+
 		<?php endif; ?>
 
-		<?php $contact = $sprout->options->get_option('header_contact', null); if ($contact): ?>
-			<div class="contact" role="complementary">
-				<?php echo do_shortcode($contact); ?>
-			</div>
+		<?php if (has_nav_menu('primary_navigation')): ?>
+			<nav class="nav large-tablet" role="navigation">
+				<?php wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => '')); ?>
+			</nav>
 		<?php endif; ?>
-
-		<nav class="nav large-tablet" role="navigation">
-			<?php if (has_nav_menu('primary_navigation')):
-					wp_nav_menu(array('theme_location' => 'primary_navigation', 'menu_class' => ''));
-			endif; ?>
-		</nav>
 	</div>
 </header>

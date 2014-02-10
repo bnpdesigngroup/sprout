@@ -7,11 +7,9 @@ Sprout is a WordPress theme based on [Roots](https://github.com/roots/roots) & [
 Typically you drop in a starter theme and begin directly modifying it to fit your requirements. While fast, this
 makes updating the theme down the road difficult, and limits how many variations of the theme you can manage.
 
-Sprout addresses the common problems every theme deals with, such as creating a theme options screen,
-creating/serving conditional stylesheets and CDN scripts with fallbacks, and cleaning WordPress up.
-Sprout is different from other themes in that it organizes its core logic into clean modules which any
-child theme can extend or override. Sprout expects you to override it and implement the details while
-providing a host of shortcuts to save you hours of setup time for every project.
+Sprout is different from other themes in that it organizes its core logic into modules which any child theme 
+can extend or override. The goal of Sprout is to separate your project from the minutiae that form its foundation,
+so that you can branch out and create a host of themes without the host of headaches. 
 
 Using Sprout
 ----

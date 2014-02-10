@@ -451,8 +451,21 @@ if (!class_exists('Sprout_Options')) {
 						'class'       => '',
 					),
 					array(
-						'id'          => 'background_main',
-						'label'       => 'Main Background',
+						'id'          => 'background_html',
+						'label'       => 'Html Background',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'background',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
+						'id'          => 'background_body',
+						'label'       => 'Body Background',
 						'desc'        => '',
 						'std'         => '',
 						'type'        => 'background',
@@ -477,8 +490,47 @@ if (!class_exists('Sprout_Options')) {
 						'class'       => ''
 					),
 					array(
+						'id'          => 'background_inner_header',
+						'label'       => 'Inner Header Background',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'background',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
 						'id'          => 'color_header',
 						'label'       => 'Header Text Color',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'colorpicker',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
+						'id'          => 'link_color_header',
+						'label'       => 'Header Link Color',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'colorpicker',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
+						'id'          => 'link_hover_color_header',
+						'label'       => 'Header Link Color on Hover',
 						'desc'        => '',
 						'std'         => '',
 						'type'        => 'colorpicker',
@@ -529,8 +581,47 @@ if (!class_exists('Sprout_Options')) {
 						'class'       => ''
 					),
 					array(
+						'id'          => 'link_color_content',
+						'label'       => 'Content Link Color',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'colorpicker',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
+						'id'          => 'link_hover_color_content',
+						'label'       => 'Content Link Color on Hover',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'colorpicker',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
 						'id'          => 'background_footer',
 						'label'       => 'Footer Background',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'background',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
+						'id'          => 'background_inner_footer',
+						'label'       => 'Inner Footer Background',
 						'desc'        => '',
 						'std'         => '',
 						'type'        => 'background',
@@ -555,10 +646,36 @@ if (!class_exists('Sprout_Options')) {
 						'class'       => ''
 					),
 					array(
+						'id'          => 'link_color_footer',
+						'label'       => 'Footer Link Color',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'colorpicker',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
+						'id'          => 'link_hover_color_footer',
+						'label'       => 'Footer Link Color on Hover',
+						'desc'        => '',
+						'std'         => '',
+						'type'        => 'colorpicker',
+						'section'     => 'style',
+						'rows'        => '',
+						'post_type'   => '',
+						'taxonomy'    => '',
+						'min_max_step'=> '',
+						'class'       => ''
+					),
+					array(
 						'id'          => 'css',
 						'label'       => 'Custom CSS',
 						'desc'        => '',
-						'std'         => "body { {{background_main}} }\nheader { {{background_header}} color: {{color_header}}; }\n[role=\"document\"] { {{background_content}} color: {{color_content}}; }\nfooter[role=\"contentinfo\"] { {{background_footer}} color: {{color_footer}}; } \n\n/* Custom CSS Here */\n\n",
+						'std'         => '',
 						'type'        => 'css',
 						'section'     => 'style',
 						'rows'        => '',
@@ -721,6 +838,24 @@ if (!class_exists('Sprout_Options')) {
 		 */
 		public function after_save($options) {
 
+			// Add auto-generated css
+
+			ot_insert_css_with_markers('generated', '
+				html { {{background_html}} } 
+				body { {{background_body}} } 
+				header[role="banner"] { {{background_header}} color: {{color_header}}; } 
+				header[role="banner"] a, header[role="banner"] a:visited { color: {{link_color_header}} } 
+				header[role="banner"] a:hover { color: {{link_hover_color_header}} } 
+				#inner_header { {{background_inner_header}} } 
+				[role="document"] { {{background_content}} color: {{color_content}}; } 
+				[role="document"] a, [role="document"] a:visited { color: {{link_color_content}} } 
+				[role="document"] a:hover { color: {{link_hover_color_content}} } 
+				#inner_content { {{background_inner_content}} } 
+				footer[role="contentinfo"] { {{background_footer}} color: {{color_footer}}; } 
+				footer[role="contentinfo"] a, footer[role="contentinfo"] a:visited { color: {{link_color_footer}} } 
+				footer[role="contentinfo"] a:hover { color: {{link_hover_color_footer}} } 
+				#inner_footer { {{background_inner_footer}} }'); 
+			
 			// Flush rewrite
 
 			flush_rewrite_rules();
