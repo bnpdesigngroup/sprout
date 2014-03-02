@@ -28,6 +28,8 @@ if (!class_exists('Sprout_Scripts')) {
 
 			add_action('wp_enqueue_scripts', array($this, 'styles'), 100);
 			add_action('wp_enqueue_scripts', array($this, 'scripts'), 100);
+			add_action('admin_enqueue_scripts', array($this, 'admin_styles'), 100);
+			add_action('admin_enqueue_scripts', array($this, 'admin_scripts'), 100);
 
 			add_filter('style_loader_tag', array($this, 'wrap_conditions'), 10, 2);
 
@@ -132,19 +134,15 @@ if (!class_exists('Sprout_Scripts')) {
 
 			// Enqueue core scripts
 
-			if (!is_admin()) {
-
-				array_push($scripts, array_replace($defaults, array(
-					'id' => 'jquery',
-					'src' => '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
-					'footer' => false,
-					'fallback' => array(
-						'test' => 'window.jQuery',
-						'src' => get_template_directory_uri() . '/assets/js/vendor/jquery-1.10.2.min.js'
-					),
-				)));
-
-			}
+			array_push($scripts, array_replace($defaults, array(
+				'id' => 'jquery',
+				'src' => '//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',
+				'footer' => false,
+				'fallback' => array(
+					'test' => 'window.jQuery',
+					'src' => get_template_directory_uri() . '/assets/js/vendor/jquery-1.10.2.min.js'
+				),
+			)));
 
 			if (is_single() && comments_open() && get_option('thread_comments')) {
 				array_push($scripts, array_replace($defaults, array(
@@ -165,17 +163,146 @@ if (!class_exists('Sprout_Scripts')) {
 					'jquery',
 				),
 			)));
+
 			array_push($scripts, array_replace($defaults, array(
 				'id' => 'groundwork_scripts',
 				'src' => get_template_directory_uri() . '/assets/js/groundwork.min.js',
 			)));
 
 			array_push($scripts, array_replace($defaults, array(
-				'id' => 'sprout_scripst',
-				'src' => get_template_directory_uri() . '/assets/js/sprout.min.js',
+				'id' => 'sprout_scripts',
+				'src' => get_template_directory_uri() . '/assets/js/front.min.js',
 			)));
 
 			$scripts = apply_filters('sprout_scripts', $scripts);
+
+			foreach ($scripts as $script) {
+
+				// Reapply defaults in case scripts were added
+
+				$script = array_replace($defaults, $script);
+
+				// If defining a new script
+
+				if ($script['src']) {
+
+					// Deregister any predefined scripts
+
+					if (wp_script_is($script['id'], 'registered')) {
+
+						wp_deregister_script($script['id']);
+
+					}
+
+					wp_register_script($script['id'], $script['src'], $script['deps'], $script['version'], $script['footer']);
+					
+				}
+
+				wp_enqueue_script($script['id']);
+
+				// Add fallbacks if any present
+
+				if ($script['fallback']) {
+
+					$script['fallback'] = array_replace(array(
+						'output' => false,
+					), $script['fallback']);
+
+					$this->fallbacks[$script['id']] = $script['fallback'];
+
+				}
+
+				// Keep script for reference
+
+				$this->scripts[$script['id']] = $script;
+
+			}
+
+		}
+
+		/**
+		 * Register and enqueue admin styles
+		 */
+		public function admin_styles() {
+
+			// Initialize variables
+
+			$defaults = array(
+				'id' => '',
+				'src' => '',
+				'deps' => array(),
+				'version' => false,
+				'media' => 'all',
+				'conditional' => false,
+			);
+			$styles = array();
+
+			$styles = apply_filters('sprout_admin_styles', $styles);
+
+			foreach ($styles as $style) {
+
+				// Reapply defaults in case styles were added
+
+				$style = array_replace($defaults, $style);
+
+				// If defining a new style
+
+				if ($style['src']) {
+
+					// Deregister any predefined scripts
+
+					if (wp_style_is($style['id'], 'registered')) {
+
+						wp_deregister_style($style['id']);
+
+					}
+
+					wp_register_style($style['id'], $style['src'], $style['deps'], $style['version'], $style['media']);
+					
+				}
+
+				wp_enqueue_style($style['id']);
+
+				// Keep style for reference
+
+				$this->styles[$style['id']] = $style;
+
+			}
+
+		}
+
+		/**
+		 * Register and enqueue admin scripts
+		 */
+		public function admin_scripts() {
+
+			// Initialize variables
+
+			$defaults = array(
+				'id' => '',
+				'src' => '',
+				'deps' => array(),
+				'version' => false,
+				'footer' => true,
+				'fallback' => false,
+				'conditional' => false,
+			);
+			$scripts = array();
+
+			// Enqueue core scripts
+
+			array_push($scripts, array_replace($defaults, array(
+				'id' => 'behave',
+				'src' => get_template_directory_uri() . '/assets/js/vendor/behave.min.js',
+			)));
+
+			array_push($scripts, array_replace($defaults, array(
+				'id' => 'sprout_admin',
+				'src' => get_template_directory_uri() . '/assets/js/admin.min.js',
+				'deps' => array('jquery', 'behave'),
+			)));
+
+			$scripts = apply_filters('sprout_admin_scripts', $scripts);
 
 			foreach ($scripts as $script) {
 
@@ -252,7 +379,7 @@ if (!class_exists('Sprout_Scripts')) {
 
 				}
 
-				// Replace "modern" with false, since any IE parsing this (lte 9) is NOT modern
+				// Replace "modern" with false, since any IE parsing IE conditions (lte 9) is NOT modern
 
 				$script['conditional'] = str_replace('modern', 'false', $script['conditional']);
 
@@ -297,7 +424,7 @@ if (!class_exists('Sprout_Scripts')) {
 
 	}
 
-	Sprout::add_module('Sprout_Scripts');
+	Sprout::add_module('Sprout_Scripts', 'scripts');
 
 }
 

@@ -34,7 +34,7 @@ if (!class_exists('Sprout_Rss')) {
 
 	}
 
-	Sprout::add_module('Sprout_Rss');
+	Sprout::add_module('Sprout_Rss', 'rss');
 
 }
 

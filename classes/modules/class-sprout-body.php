@@ -45,7 +45,7 @@ if (!class_exists('Sprout_Body')) {
 
 	}
 
-	Sprout::add_module('Sprout_Body');
+	Sprout::add_module('Sprout_Body', 'body');
 
 }
 

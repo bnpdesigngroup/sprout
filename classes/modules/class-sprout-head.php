@@ -136,7 +136,7 @@ if (!class_exists('Sprout_Head')) {
 
 	}
 
-	Sprout::add_module('Sprout_Head');
+	Sprout::add_module('Sprout_Head', 'head');
 
 }
 

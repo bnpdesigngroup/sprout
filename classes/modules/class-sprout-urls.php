@@ -91,11 +91,11 @@ if (!class_exists('Sprout_Urls')) {
 
 			// Ensure url is internal before modifying it
 
-			preg_match('|https?://([^/]+)(/.*)|i', $url, $matches);
+			preg_match('|https?://([^/]+)|i', $url, $matches);
 
-			// If url has domain name and path and domain matches server name, it is internal
+			// If url is without domain or domain is the same as site, then url is internal
 
-			if (isset($matches[1]) && isset($matches[2]) && $matches[1] === $_SERVER['SERVER_NAME']) {
+			if (!isset($matches[1]) || $matches[1] === $_SERVER['SERVER_NAME']) {
 
 				// If url can be shortened, shorten it
 
@@ -120,7 +120,13 @@ if (!class_exists('Sprout_Urls')) {
 
 				if ($root_relative) {
 
+					$root_dir = preg_replace('|(?>https?://)?[^/]+(/.*)$|', '$1', get_site_url());
+
 					$url = wp_make_link_relative($url);
+
+					// Collapse duplicated root dirs (due to WP incorrectly prepending root path)
+
+					$url = str_replace($root_dir . $root_dir, $root_dir, $url);
 
 				}
 
@@ -132,7 +138,7 @@ if (!class_exists('Sprout_Urls')) {
 		
 	}
 
-	Sprout::add_module('Sprout_Urls');
+	Sprout::add_module('Sprout_Urls', 'urls');
 
 }
 

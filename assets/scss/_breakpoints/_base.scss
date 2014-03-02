@@ -61,7 +61,67 @@ header[role="banner"] {
  * Header - Navigation
  */
 
-.nav {
+header .nav {
+
+	background: none;
+	border-width: 0;
+	border-radius: 0;
+
+	@include _gap-top(0.5);
+
+	&:before {
+
+		padding-left: 0;
+
+	}
+
+	.hamburger {
+
+	}
+
+	a {
+
+		background: none;
+		transition: background 0.5s, color 0.5s;
+
+		&, &:visited, &:active, &:hover, &:focus {
+
+			background: none;
+			@include _pad-top(0.5);
+			@include _pad-right;
+			@include _pad-bottom(0.5);
+			@include _pad-left;
+
+		}
+
+		&.disabled {
+
+			@include state(disabled, normal, darken($white, 20%));
+
+		}
+
+
+	}
+
+	li {
+
+		&.current a {
+
+		}
+
+		ul {
+
+			border: none;
+
+			ul {
+
+				top: 0;
+
+			}
+
+		}
+
+	}
 
 }
 

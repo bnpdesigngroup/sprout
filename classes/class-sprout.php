@@ -33,12 +33,19 @@ if (!class_exists('Sprout')) {
 		 * modules are instantiated. Also this is defining
 		 * relationship between classes, not objects
 		 * @param string $module Class name of module
+		 * @param string $handle Handle for module
 		 */
-		public static function add_module($module) {
+		public static function add_module($module, $handle = NULL) {
 
-			if (!in_array($module, self::$load_modules)) {
+			if (!$handle) {
 
-				array_push(self::$load_modules, $module);
+				$handle = $module;
+
+			}
+
+			if (!array_key_exists($handle, self::$load_modules)) {
+
+				self::$load_modules[$handle] = $module;
 
 			}
 
@@ -46,13 +53,13 @@ if (!class_exists('Sprout')) {
 
 		/**
 		 * Remove a module in load queue
-		 * @param string $module Class name of module
+		 * @param string $handle Handle name of module
 		 */
-		public static function remove_module($module) {
+		public static function remove_module($handle) {
 
-			if (in_array($module, self::$load_modules)) {
+			if (array_key_exists($handle, self::$load_modules)) {
 
-				self::$modules = array_diff(self::$modules, array ($module));
+				unset(self::$load_modules[$handle]);
 
 			}
 
@@ -87,24 +94,11 @@ if (!class_exists('Sprout')) {
 
 			// Load modules
 
-			foreach (self::$load_modules as $module) {
+			foreach (self::$load_modules as $handle => $module) {
 
 				// Shorten module name
 				
-				if (strpos($module, "_") !== false) {
-					$name = strtolower(substr($module, strpos($module, "_") + 1));
-					
-					// Name exists, use full name
-
-					if (self::$modules[$name]) {
-
-						$name = strtolower($module);
-
-					}
-
-				}
-				
-				self::$modules[$name] = $module::get_instance();
+				self::$modules[$handle] = $module::get_instance();
 			
 			}
 
@@ -151,10 +145,11 @@ require dirname(__FILE__) . '/walkers/class-sprout-walker-nav.php';
 
 // Load modules
 
-require dirname(__FILE__) . '/modules/class-sprout-activation.php';
 require dirname(__FILE__) . '/modules/class-sprout-body.php';
 require dirname(__FILE__) . '/modules/class-sprout-comments.php';
+require dirname(__FILE__) . '/modules/class-sprout-dependencies.php';
 require dirname(__FILE__) . '/modules/class-sprout-head.php';
+require dirname(__FILE__) . '/modules/class-sprout-images.php';
 require dirname(__FILE__) . '/modules/class-sprout-layout.php';
 require dirname(__FILE__) . '/modules/class-sprout-nav.php';
 require dirname(__FILE__) . '/modules/class-sprout-options.php';

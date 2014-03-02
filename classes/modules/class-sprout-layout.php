@@ -194,7 +194,7 @@ if (!class_exists('Sprout_Layout')) {
 		
 	}
 
-	Sprout::add_module('Sprout_Layout');
+	Sprout::add_module('Sprout_Layout', 'layout');
 
 }
 

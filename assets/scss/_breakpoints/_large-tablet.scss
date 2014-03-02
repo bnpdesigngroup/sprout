@@ -46,23 +46,15 @@ header[role="banner"] {
  * Header - Navigation
  */
 
-.nav.large-tablet {
-
-	background: none;
-	border: none;
+header .nav {
 
 	a {
-
-		background: none;
-		border: none;
 
 		&:active, &:hover, &:focus {
 
 		}
 
 		&.disabled {
-
-			@include state(disabled, normal, darken($white, 20%));
 
 		}
 
@@ -77,11 +69,8 @@ header[role="banner"] {
 
 		ul {
 
-			border: none;
-
 			ul {
 
-				top: 0;
 
 			}
 
@@ -89,18 +78,12 @@ header[role="banner"] {
 
 	}
 
-	& > ul > li {
+	& > ul > li:first-child > a {
 
-		@include _gap-right();
-
-		& > a {
-
-			padding: 0;
-
-		}	
+		padding-left: 0;
 
 	}
-	
+
 }
 
 /**

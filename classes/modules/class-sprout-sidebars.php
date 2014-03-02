@@ -175,7 +175,7 @@ if (!class_exists('Sprout_Sidebars')) {
 
 	}
 
-	Sprout::add_module('Sprout_Sidebars');
+	Sprout::add_module('Sprout_Sidebars', 'sidebars');
 
 }
 

@@ -39,6 +39,7 @@
           &:after {
             @include _pull-right;
             @include icon($fa-var-caret-down);
+            line-height: inherit;
           }
         }
         ul {

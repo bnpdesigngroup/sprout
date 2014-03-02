@@ -154,7 +154,7 @@ if (!class_exists('Sprout_Templates')) {
 
 	}
 
-	Sprout::add_module('Sprout_Templates');
+	Sprout::add_module('Sprout_Templates', 'templates');
 
 }
 

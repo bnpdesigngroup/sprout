@@ -138,6 +138,7 @@ hr {
 img,
 a img {
   max-width: 100%;
+  height: auto;
   border: none;
 }
 
@@ -21397,6 +21398,7 @@ textarea[aria-invalid="false"] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f0d7";
+  line-height: inherit;
 }
 
 .nav.mobile li[role="menu"] ul {
@@ -21570,6 +21572,7 @@ textarea[aria-invalid="false"] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f0d7";
+  line-height: inherit;
 }
 
 .nav.small-tablet li[role="menu"] ul {
@@ -21743,6 +21746,7 @@ textarea[aria-invalid="false"] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f0d7";
+  line-height: inherit;
 }
 
 .nav.large-tablet li[role="menu"] ul {
@@ -21916,6 +21920,7 @@ textarea[aria-invalid="false"] {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   content: "\f0d7";
+  line-height: inherit;
 }
 
 .nav li[role="menu"] ul {
@@ -25499,6 +25504,52 @@ body {
  * Header - Navigation
  */
 
+header .nav {
+  background: none;
+  border-width: 0;
+  border-radius: 0;
+  margin-top: 5px;
+}
+
+header .nav:before {
+  padding-left: 0;
+}
+
+header .nav a {
+  background: none;
+  -webkit-transition: background 0.5s, color 0.5s;
+  transition: background 0.5s, color 0.5s;
+}
+
+header .nav a,
+header .nav a:visited,
+header .nav a:active,
+header .nav a:hover,
+header .nav a:focus {
+  background: none;
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+header .nav a.disabled {
+  color: white;
+  background: #f2f2f2;
+  border-color: #e6e6e6;
+  cursor: not-allowed;
+  text-decoration: none;
+  outline: none;
+}
+
+header .nav li ul {
+  border: none;
+}
+
+header .nav li ul ul {
+  top: 0;
+}
+
 /**
  * Document
  */
@@ -25934,39 +25985,8 @@ a img.aligncenter {
  * Header - Navigation
  */
 
-.nav.large-tablet {
-  background: none;
-  border: none;
-}
-
-.nav.large-tablet a {
-  background: none;
-  border: none;
-}
-
-.nav.large-tablet a.disabled {
-  color: white;
-  background: #f2f2f2;
-  border-color: #e6e6e6;
-  cursor: not-allowed;
-  text-decoration: none;
-  outline: none;
-}
-
-.nav.large-tablet li ul {
-  border: none;
-}
-
-.nav.large-tablet li ul ul {
-  top: 0;
-}
-
-.nav.large-tablet > ul > li {
-  margin-right: 10px;
-}
-
-.nav.large-tablet > ul > li > a {
-  padding: 0;
+header .nav > ul > li:first-child > a {
+  padding-left: 0;
 }
 
 /**

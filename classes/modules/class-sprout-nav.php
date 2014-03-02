@@ -67,7 +67,7 @@ if (!class_exists('Sprout_Nav')) {
 
 	}
 
-	Sprout::add_module('Sprout_Nav');
+	Sprout::add_module('Sprout_Nav', 'nav');
 
 }
 

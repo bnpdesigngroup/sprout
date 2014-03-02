@@ -765,7 +765,7 @@ if (!class_exists('Sprout_Routes')) {
 
 	}
 
-	Sprout::add_module('Sprout_Shortcodes');
+	Sprout::add_module('Sprout_Shortcodes', 'shortcodes');
 
 }
 

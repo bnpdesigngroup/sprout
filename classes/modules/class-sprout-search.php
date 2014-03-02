@@ -94,7 +94,7 @@ if (!class_exists('Sprout_Search')) {
 
 	}
 
-	Sprout::add_module('Sprout_Search');
+	Sprout::add_module('Sprout_Search', 'search');
 
 }
 

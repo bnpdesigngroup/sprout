@@ -25,15 +25,25 @@ if (!class_exists('Sprout_Options')) {
 			add_filter('ot_theme_mode', '__return_true');
 
 			add_filter('ot_radio_images', array($this, 'radio_images'), 1);
+			add_filter('css_option_file_path', array($this, 'get_generated_css_path'), 1);
 
 			add_filter('ot_recognized_sidebars', array($sprout->sidebars, 'get_selectable_sidebars'), 1);
 			add_filter('sprout_get_selectable_sidebars', array($this, 'selectable_sidebars'), 1);
 
+			// Setting controls
+
 			add_action('admin_init', array($this, 'register_theme_options'), 1);
 			add_action('admin_init', array($this, 'register_meta_boxes'), 1);
 
+			// Post-save operations
+
 			add_action('ot_after_theme_options_save', array($this, 'after_save'), 1);
-			
+
+			// Activation / deactivation
+
+			add_action('after_switch_theme', array($this, 'activation'));
+			add_action('switch_theme', array($this, 'deactivation'));
+
 		}
 
 		/**
@@ -209,8 +219,8 @@ if (!class_exists('Sprout_Options')) {
 					),
 					array(
 						'id'          => 'root_relative',
-						'label'       => 'Root Relative URLs',
-						'desc'        => 'Would you like urls to be root relative? ("http://' . get_home_url() . '/path/to/file" => "/path/to/file")',
+						'label'       => 'Root Relative URLs (Requires permalinks)',
+						'desc'        => 'Would you like urls to be root relative? ("' . get_home_url() . '/path/to/file" => "/path/to/file")',
 						'std'         => '',
 						'type'        => 'checkbox',
 						'section'     => 'general',
@@ -228,8 +238,8 @@ if (!class_exists('Sprout_Options')) {
 					),
 					array(
 						'id'          => 'short_urls',
-						'label'       => 'Theme Shortcuts',
-						'desc'        => 'Would you like theme urls to be shortened? ("' . plugins_url() . '" => "' . get_home_url() . '/plugins")',
+						'label'       => 'Theme Shortcuts (Requires permalinks)',
+						'desc'        => 'Would you like urls to be shortened? ("' . THEME_URI . '/assets" => "' . get_site_url() . '/assets")',
 						'std'         => '',
 						'type'        => 'checkbox',
 						'section'     => 'general',
@@ -247,8 +257,8 @@ if (!class_exists('Sprout_Options')) {
 					),
 					array(
 						'id'          => 'nice_search',
-						'label'       => 'Nice Search',
-						'desc'        => 'Would you like search requests cleaned up? ("/?s=my%20search%20term" => "/search/my+search+term")',
+						'label'       => 'Nice Search (Requires permalinks)',
+						'desc'        => 'Would you like search requests cleaned up? ("' . get_site_url() . '/?s=my%20search%20term" => "' . get_site_url() . '/search/my+search+term")',
 						'std'         => '',
 						'type'        => 'checkbox',
 						'section'     => 'general',
@@ -503,45 +513,6 @@ if (!class_exists('Sprout_Options')) {
 						'class'       => ''
 					),
 					array(
-						'id'          => 'color_header',
-						'label'       => 'Header Text Color',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'link_color_header',
-						'label'       => 'Header Link Color',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'link_hover_color_header',
-						'label'       => 'Header Link Color on Hover',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
 						'id'          => 'background_content',
 						'label'       => 'Content Background',
 						'desc'        => '',
@@ -568,45 +539,6 @@ if (!class_exists('Sprout_Options')) {
 						'class'       => ''
 					),
 					array(
-						'id'          => 'color_content',
-						'label'       => 'Content Text Color',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'link_color_content',
-						'label'       => 'Content Link Color',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'link_hover_color_content',
-						'label'       => 'Content Link Color on Hover',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
 						'id'          => 'background_footer',
 						'label'       => 'Footer Background',
 						'desc'        => '',
@@ -625,45 +557,6 @@ if (!class_exists('Sprout_Options')) {
 						'desc'        => '',
 						'std'         => '',
 						'type'        => 'background',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'color_footer',
-						'label'       => 'Footer Text Color',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'link_color_footer',
-						'label'       => 'Footer Link Color',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
-						'section'     => 'style',
-						'rows'        => '',
-						'post_type'   => '',
-						'taxonomy'    => '',
-						'min_max_step'=> '',
-						'class'       => ''
-					),
-					array(
-						'id'          => 'link_hover_color_footer',
-						'label'       => 'Footer Link Color on Hover',
-						'desc'        => '',
-						'std'         => '',
-						'type'        => 'colorpicker',
 						'section'     => 'style',
 						'rows'        => '',
 						'post_type'   => '',
@@ -834,6 +727,16 @@ if (!class_exists('Sprout_Options')) {
 		}
 
 		/**
+		 * Store generated css in main assets
+		 * Avoids conflict of paths when switching themes
+		 */
+		public function get_generated_css_path($path) {
+
+			return get_template_directory() . '/assets/css/dynamic.css';
+
+		}
+
+		/**
 		 * After theme options saved
 		 */
 		public function after_save($options) {
@@ -843,17 +746,11 @@ if (!class_exists('Sprout_Options')) {
 			ot_insert_css_with_markers('generated', '
 				html { {{background_html}} } 
 				body { {{background_body}} } 
-				header[role="banner"] { {{background_header}} color: {{color_header}}; } 
-				header[role="banner"] a, header[role="banner"] a:visited { color: {{link_color_header}} } 
-				header[role="banner"] a:hover { color: {{link_hover_color_header}} } 
+				header[role="banner"] { {{background_header}} } 
 				#inner_header { {{background_inner_header}} } 
-				[role="document"] { {{background_content}} color: {{color_content}}; } 
-				[role="document"] a, [role="document"] a:visited { color: {{link_color_content}} } 
-				[role="document"] a:hover { color: {{link_hover_color_content}} } 
+				[role="document"] { {{background_content}} }
 				#inner_content { {{background_inner_content}} } 
-				footer[role="contentinfo"] { {{background_footer}} color: {{color_footer}}; } 
-				footer[role="contentinfo"] a, footer[role="contentinfo"] a:visited { color: {{link_color_footer}} } 
-				footer[role="contentinfo"] a:hover { color: {{link_hover_color_footer}} } 
+				footer[role="contentinfo"] { {{background_footer}} }
 				#inner_footer { {{background_inner_footer}} }'); 
 			
 			// Flush rewrite
@@ -864,9 +761,23 @@ if (!class_exists('Sprout_Options')) {
 
 		}
 
+		/**
+		 * Run when theme is activated
+		 */
+		public function activation() {
+
+		}
+
+		/**
+		 * Run when theme is deactivated
+		 */
+		public function deactivation() {
+
+		}
+
 	}
 
-	Sprout::add_module('Sprout_Options');
+	Sprout::add_module('Sprout_Options', 'options');
 
 }
 

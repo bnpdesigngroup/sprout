@@ -28,7 +28,7 @@ if (!class_exists('Sprout_Comments')) {
 
 	}
 
-	Sprout::add_module('Sprout_Comments');
+	Sprout::add_module('Sprout_Comments', 'comments');
 
 }
 

@@ -34,7 +34,7 @@ if (!class_exists('Sprout_Admin')) {
 
 	}
 
-	Sprout::add_module('Sprout_Admin');
+	Sprout::add_module('Sprout_Admin', 'admin');
 
 }
 

@@ -30,7 +30,7 @@ if (!class_exists('Sprout_Excerpts')) {
 		}
 	}
 
-	Sprout::add_module('Sprout_Excerpts');
+	Sprout::add_module('Sprout_Excerpts', 'excerpts');
 
 }
 

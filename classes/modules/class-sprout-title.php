@@ -69,7 +69,7 @@ if (!class_exists('Sprout_Title')) {
 
 	}
 
-	Sprout::add_module('Sprout_Title');
+	Sprout::add_module('Sprout_Title', 'title');
 
 }
 
