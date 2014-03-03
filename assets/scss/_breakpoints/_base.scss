@@ -84,13 +84,18 @@ header .nav {
 		background: none;
 		transition: background 0.5s, color 0.5s;
 
-		&, &:visited, &:active, &:hover, &:focus {
+		&, &:visited {
 
-			background: none;
 			@include _pad-top(0.5);
 			@include _pad-right;
 			@include _pad-bottom(0.5);
 			@include _pad-left;
+			
+		}
+
+		&, &:visited, &:active, &:hover, &:focus {
+
+			background: none;
 
 		}
 
