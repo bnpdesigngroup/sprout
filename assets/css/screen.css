@@ -25540,15 +25540,19 @@ header .nav a {
 }
 
 header .nav a,
+header .nav a:visited {
+  padding-top: 5px;
+  padding-right: 10px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+}
+
+header .nav a,
 header .nav a:visited,
 header .nav a:active,
 header .nav a:hover,
 header .nav a:focus {
   background: none;
-  padding-top: 5px;
-  padding-right: 10px;
-  padding-bottom: 5px;
-  padding-left: 10px;
 }
 
 header .nav a.disabled {
