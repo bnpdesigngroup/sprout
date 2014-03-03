@@ -20,7 +20,8 @@ module.exports = (grunt) ->
     clean:
       build:
         src: [
-          "assets/css/**/*.css"
+          "assets/css/**/*.css",
+          "!assets/css/**/dynamic.css"
         ]
 
     compass:

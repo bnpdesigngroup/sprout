@@ -1,7 +1,49 @@
 /* BEGIN generated */
 
+				html {  } 
+				body {  } 
+				header[role="banner"] {  } 
+				#inner_header {  } 
+				[role="document"] {  }
+				#inner_content {  } 
+				footer[role="contentinfo"] {  }
+				#inner_footer {  }
 /* END generated */
 
 /* BEGIN css */
+header[role="banner"] {
 
+}
+
+header[role="banner"] .nav,
+header[role="banner"] .nav ul {
+
+}
+
+header[role="banner"] .nav,
+header[role="banner"] .nav a,
+header[role="banner"] .nav a:visited,
+header[role="banner"] .nav .hamburger {
+
+}
+
+header[role="banner"] .nav a {
+
+}
+
+header[role="banner"] .nav a:hover {
+
+}
+
+header[role="banner"] .nav .current > a {
+
+}
+
+footer[role="contentinfo"] {
+
+}
+
+.social-links {
+
+}
 /* END css */

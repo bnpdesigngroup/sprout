@@ -8,9 +8,13 @@ add_action('after_setup_theme', 'sprout_load', 1);
 
 require dirname(__FILE__) . '/constants.php';
 
+// Load TGM Plugin Activation (dependancy)
+
+require dirname(__FILE__) . '/includes/tgm-plugin-activation/class-tgm-plugin-activation.php';
+
 // Load OptionTree (dependancy)
 
-require dirname(__FILE__) . '/option-tree/ot-loader.php';
+require dirname(__FILE__) . '/includes/option-tree/ot-loader.php';
 
 // Load core
 
