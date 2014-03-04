@@ -44,7 +44,7 @@ if (!class_exists('Sprout_Images')) {
 
 	}
 
-	Sprout::add_module('Sprout_Title', 'title');
+	Sprout::add_module('Sprout_Images', 'images');
 
 }
 
