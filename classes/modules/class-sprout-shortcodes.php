@@ -1,8 +1,8 @@
 <?php
 
-if (!class_exists('Sprout_Routes')) {
+if (!class_exists('Sprout_Shortcodes')) {
 
-	class Sprout_Routes extends Sprout_Module {
+	class Sprout_Shortcodes extends Sprout_Module {
 		
 		protected function __construct() {
 
@@ -62,7 +62,7 @@ if (!class_exists('Sprout_Routes')) {
 		 * @param string $content Content to format
 		 * @return string Formatted content
 		 */
-		private function format($content) {
+		public function format($content) {
 
 			$new_content = '';
 			$pattern_tag = 'noautop|row|list';
@@ -83,6 +83,8 @@ if (!class_exists('Sprout_Routes')) {
 				}
 
 			}
+
+			error_log($new_content);
 
 			return $new_content;
 

@@ -155,6 +155,7 @@ require dirname(__FILE__) . '/modules/class-sprout-nav.php';
 require dirname(__FILE__) . '/modules/class-sprout-options.php';
 require dirname(__FILE__) . '/modules/class-sprout-scripts.php';
 require dirname(__FILE__) . '/modules/class-sprout-search.php';
+require dirname(__FILE__) . '/modules/class-sprout-shortcodes.php';
 require dirname(__FILE__) . '/modules/class-sprout-sidebars.php';
 require dirname(__FILE__) . '/modules/class-sprout-templates.php';
 require dirname(__FILE__) . '/modules/class-sprout-title.php';
